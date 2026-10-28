@@ -1,6 +1,12 @@
 import { PrismaClient } from "@/lib/generated/client";
 import { PrismaPg } from "@prisma/adapter-pg";
 import { Pool } from "pg";
+import dns from "node:dns";
+
+try {
+  dns.setDefaultResultOrder("ipv4first");
+  dns.setServers(["8.8.8.8", "1.1.1.1"]);
+} catch {}
 
 const globalForPrisma = global as unknown as { prisma?: PrismaClient; pool?: Pool };
 
@@ -14,7 +20,7 @@ function getPool(): Pool {
       connectionString,
       max: 10,
       idleTimeoutMillis: 60000,
-      connectionTimeoutMillis: 10000,
+      connectionTimeoutMillis: 30000,
       keepAlive: true,
     });
   }
