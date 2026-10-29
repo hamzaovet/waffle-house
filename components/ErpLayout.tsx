@@ -197,6 +197,12 @@ export default function ErpLayout({ children, activeItem }: ErpLayoutProps) {
           <nav style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
             {[
               {
+                id: "cashier",
+                href: "/cashier",
+                label: t("ماكينة الكاشير (POS)", "POS / Counter Sale"),
+                icon: MonitorSmartphone,
+              },
+              {
                 id: "orders",
                 href: "/dashboard",
                 label: t("المطبخ والطلبات", "Kitchen & Orders"),
@@ -219,12 +225,6 @@ export default function ErpLayout({ children, activeItem }: ErpLayoutProps) {
                 href: "/reports",
                 label: t("الحسابات والأرباح", "Finances & Profits"),
                 icon: CircleDollarSign,
-              },
-              {
-                id: "cashier",
-                href: "/cashier",
-                label: t("ماكينة الكاشير (POS)", "POS / Counter Sale"),
-                icon: MonitorSmartphone,
               },
               {
                 id: "customers",
@@ -311,7 +311,7 @@ export default function ErpLayout({ children, activeItem }: ErpLayoutProps) {
             onMouseLeave={(e) => {
               if (currentActive !== "users") {
                 e.currentTarget.style.borderColor = "#E8DAC8";
-                e.currentTarget.style.color = "#2B170E";
+                e.currentTarget.style.color = "#F3D8C8";
               }
             }}
           >
@@ -331,7 +331,7 @@ export default function ErpLayout({ children, activeItem }: ErpLayoutProps) {
               alignItems: "center",
               gap: "8px",
               padding: "8px 12px",
-              color: "#7E5E49",
+              color: "#D4B896",
               textDecoration: "none",
               fontSize: "13px",
               fontWeight: 700,

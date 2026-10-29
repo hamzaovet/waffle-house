@@ -12,6 +12,7 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { CAIRO_DELIVERY_ZONES, ZoneItem, DEFAULT_ZONE } from "@/lib/zones";
+import ErpLayout from "@/components/ErpLayout";
 
 interface Order {
   id: string;
@@ -276,79 +277,72 @@ export default function CashierPage() {
 
   if (authLoading || loading) {
     return (
-      <div className="min-h-screen bg-[#1C0500] flex items-center justify-center">
-        <Loader2 className="animate-spin text-[#F59E0B]" size={42} />
-      </div>
+      <ErpLayout activeItem="cashier">
+        <div style={{ minHeight: "60vh", display: "flex", alignItems: "center", justifyContent: "center" }}>
+          <Loader2 style={{ animation: "spin 1s linear infinite", color: "#F59E0B" }} size={42} />
+        </div>
+      </ErpLayout>
     );
   }
 
   return (
+    <ErpLayout activeItem="cashier">
     <div
       dir={dir}
-      className="min-h-screen text-stone-100 p-3 sm:p-5"
       style={{
-        background: "linear-gradient(135deg, #1A0400 0%, #2A0802 30%, #4A0E06 70%, #150300 100%)",
+        color: "#f1f0ee",
         fontFamily: "var(--font-cairo), system-ui, sans-serif",
       }}
     >
-      {/* ── Top Bar ── */}
-      <div className="flex items-center justify-between mb-4 flex-wrap gap-3 pb-3 border-b border-amber-900/40">
-        <div className="flex items-center gap-3">
-          <div className="w-11 h-11 rounded-2xl bg-gradient-to-br from-[#8B0000] to-[#5A0E06] border border-[#F59E0B]/50 flex items-center justify-center shadow-lg">
-            <span className="text-2xl">🧇</span>
+      {/* ── Page Title Bar ── */}
+      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "20px", flexWrap: "wrap", gap: "12px", paddingBottom: "16px", borderBottom: "1px solid rgba(180,100,20,0.3)" }}>
+        <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+          <div style={{ width: "44px", height: "44px", borderRadius: "14px", background: "linear-gradient(135deg, #8B0000, #5A0E06)", border: "1px solid rgba(245,158,11,0.5)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "22px" }}>
+            🧇
           </div>
           <div>
-            <h1 className="text-xl sm:text-2xl font-black text-white flex items-center gap-2">
+            <h1 style={{ fontSize: "20px", fontWeight: 900, color: "#FFFFFF", display: "flex", alignItems: "center", gap: "8px", flexWrap: "wrap", margin: 0 }}>
               <span>{t("ماكينة الكاشير والبيع المباشر (POS)", "Direct Counter Sale & POS")}</span>
-              <span className="text-xs bg-[#8B0000] text-amber-200 px-2.5 py-0.5 rounded-full border border-amber-500/40 font-bold">
+              <span style={{ fontSize: "11px", background: "#8B0000", color: "#fde68a", padding: "2px 10px", borderRadius: "100px", border: "1px solid rgba(245,158,11,0.4)", fontWeight: 700 }}>
                 فرع حدائق القبة
               </span>
             </h1>
-            <p className="text-xs text-amber-200/80 mt-0.5">
+            <p style={{ fontSize: "12px", color: "rgba(253,230,138,0.8)", marginTop: "2px" }}>
               {t("بيع مباشر وتيك أواي للكاونتر (0 ج توصيل) وتسجيل فوري وطباعة ريسيت 80mm", "Instant counter sales & 80mm thermal receipts")}
             </p>
           </div>
         </div>
 
-        {/* Navigation & Mode Switches */}
-        <div className="flex items-center gap-2 flex-wrap">
-          <div className="flex p-1 bg-[#240803] border border-amber-900/60 rounded-xl">
+        {/* Mode Switches */}
+        <div style={{ display: "flex", alignItems: "center", gap: "8px", flexWrap: "wrap" }}>
+          <div style={{ display: "flex", padding: "4px", background: "#240803", border: "1px solid rgba(180,100,20,0.5)", borderRadius: "14px" }}>
             <button
               onClick={() => { setActiveMainTab("pos"); playSound("click"); }}
-              className={`px-4 py-1.5 rounded-lg text-xs font-black transition-all flex items-center gap-1.5 ${
-                activeMainTab === "pos"
-                  ? "bg-gradient-to-r from-[#8B0000] to-[#B91C1C] text-white shadow-lg border border-amber-400/40"
-                  : "text-stone-300 hover:text-white"
-              }`}
+              style={{
+                padding: "6px 16px", borderRadius: "10px", fontSize: "12px", fontWeight: 900,
+                display: "flex", alignItems: "center", gap: "6px", border: "none", cursor: "pointer",
+                background: activeMainTab === "pos" ? "linear-gradient(135deg, #8B0000, #B91C1C)" : "transparent",
+                color: activeMainTab === "pos" ? "#fff" : "#d6d3d1",
+                boxShadow: activeMainTab === "pos" ? "0 2px 8px rgba(139,0,0,0.5)" : "none",
+              }}
             >
               <Store size={15} />
               <span>ماكينة البيع المباشر (POS)</span>
             </button>
             <button
               onClick={() => { setActiveMainTab("history"); playSound("click"); }}
-              className={`px-4 py-1.5 rounded-lg text-xs font-black transition-all flex items-center gap-1.5 ${
-                activeMainTab === "history"
-                  ? "bg-gradient-to-r from-[#8B0000] to-[#B91C1C] text-white shadow-lg border border-amber-400/40"
-                  : "text-stone-300 hover:text-white"
-              }`}
+              style={{
+                padding: "6px 16px", borderRadius: "10px", fontSize: "12px", fontWeight: 900,
+                display: "flex", alignItems: "center", gap: "6px", border: "none", cursor: "pointer",
+                background: activeMainTab === "history" ? "linear-gradient(135deg, #8B0000, #B91C1C)" : "transparent",
+                color: activeMainTab === "history" ? "#fff" : "#d6d3d1",
+                boxShadow: activeMainTab === "history" ? "0 2px 8px rgba(139,0,0,0.5)" : "none",
+              }}
             >
               <ShoppingBag size={15} />
               <span>فواتير اليوم ({stats.total} ج)</span>
             </button>
           </div>
-
-          <Link
-            href="/"
-            className="px-3.5 py-1.5 rounded-xl bg-[#240803] border border-amber-900/60 text-stone-300 hover:text-white text-xs font-bold transition-colors"
-          >
-            الموقع 🌐
-          </Link>
-          <Link
-            href="/dashboard"
-            className="px-3.5 py-1.5 rounded-xl bg-[#240803] border border-amber-900/60 text-amber-300 hover:text-white text-xs font-bold transition-colors"
-          >
-            الداشبورد 📊
-          </Link>
         </div>
       </div>
 
@@ -830,5 +824,6 @@ export default function CashierPage() {
         </div>
       )}
     </div>
+    </ErpLayout>
   );
 }
