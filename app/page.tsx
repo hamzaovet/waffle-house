@@ -749,7 +749,7 @@ export default function HomePage() {
      RENDER
   ────────────────────────────────────────────────────────── */
   return (
-    <div dir={lang === "ar" ? "rtl" : "ltr"} style={{ minHeight: "100vh", backgroundColor: C.dark, color: C.cream, fontFamily: "var(--font-cairo), system-ui, -apple-system, Arial, sans-serif" }}>
+    <div dir={lang === "ar" ? "rtl" : "ltr"} style={{ minHeight: "100vh", background: "linear-gradient(180deg, #1C0500 0%, #2A0802 8%, #3E0B04 22%, #5A0E06 45%, #7F1D1D 62%, #3E0B04 82%, #150300 100%)", color: "#FFFFFF", fontFamily: "var(--font-cairo), system-ui, -apple-system, Arial, sans-serif" }}>
 
       {/* ═══════════════════════════════════════════════════════
           HERO — Royal Crimson & Velvety Chocolate Canvas (Matching Waffle House Brand)
@@ -1213,16 +1213,17 @@ export default function HomePage() {
           <h2 style={{
             fontSize: "clamp(28px, 3.4vw, 38px)",
             fontWeight: 900,
-            color: "#2B170E",
+            color: "#FFFFFF",
             margin: "0 0 6px 0",
             fontFamily: "var(--font-cairo), system-ui, sans-serif",
             letterSpacing: "-0.5px",
+            textShadow: "0 2px 10px rgba(0,0,0,0.5)",
           }}>
             {lang === "en" ? "Full Menu" : "المنيو الكامل"}
           </h2>
           <p style={{
             fontSize: "13.5px",
-            color: "#6B4F3B",
+            color: "#FDE68A",
             margin: 0,
             fontWeight: 500,
             fontFamily: "var(--font-cairo), system-ui, sans-serif",
@@ -1355,8 +1356,8 @@ export default function HomePage() {
                   height: "66px",
                   borderRadius: "50%",
                   overflow: "hidden",
-                  backgroundColor: "#FAF6EE",
-                  border: isActive ? "3px solid #2B170E" : "1.5px solid #E8DAC8",
+                  backgroundColor: "#FFFFFF",
+                  border: isActive ? "3px solid #F59E0B" : "2px solid rgba(255, 255, 255, 0.8)",
                   boxShadow: isActive ? "0 4px 16px rgba(43,23,14,0.24)" : "0 2px 8px rgba(43,23,14,0.05)",
                   display: "flex",
                   alignItems: "center",
@@ -1398,12 +1399,12 @@ export default function HomePage() {
                 {/* Category Label */}
                 <span style={{
                   fontSize: "13px",
-                  fontWeight: isActive ? 900 : 700,
-                  color: isActive ? "#FFFFFF" : "#5A3825",
-                  backgroundColor: isActive ? "#2B170E" : "#FAF6EE",
-                  padding: "4px 12px",
+                  fontWeight: isActive ? 900 : 800,
+                  color: isActive ? "#FFFFFF" : "#2B170E",
+                  backgroundColor: isActive ? "#8B0000" : "#FFFFFF",
+                  padding: "4px 14px",
                   borderRadius: "100px",
-                  border: isActive ? "1px solid #2B170E" : "1px solid #E8DAC8",
+                  border: isActive ? "1.5px solid #F59E0B" : "1px solid #E8DAC8",
                   whiteSpace: "nowrap",
                   fontFamily: "var(--font-cairo), system-ui, sans-serif",
                   transition: "all 0.2s ease",
@@ -1479,19 +1480,20 @@ export default function HomePage() {
                       <div style={{
                         fontSize: "22px",
                         fontWeight: 900,
-                        color: "#2B170E",
+                        color: "#FFFFFF",
                         display: "flex",
                         alignItems: "center",
                         gap: "8px",
                         justifyContent: "center",
                         fontFamily: "var(--font-cairo), system-ui, sans-serif",
+                        textShadow: "0 2px 8px rgba(0,0,0,0.4)",
                       }}>
                         <span style={{ fontSize: "24px" }}>{CATEGORY_EMOJI[catName] || "🧇"}</span>
                         <span>{lang === "en" ? (CATEGORY_NAMES_EN[catName] || catName) : catName}</span>
                       </div>
                       <div style={{
                         fontSize: "12.5px",
-                        color: "#8C6546",
+                        color: "#FDE68A",
                         fontWeight: 600,
                         marginTop: "2px",
                         fontFamily: "var(--font-cairo), system-ui, sans-serif",
@@ -1618,93 +1620,144 @@ export default function HomePage() {
                               paddingTop: "6px",
                               borderTop: "1px dashed #F0E4D5",
                             }}>
-                              {/* Price & Variant Range Display */}
+                              {/* Direct Multi-Tier Variant Selection & Pricing */}
                               <div style={{
                                 display: "flex",
-                                flexDirection: "column",
-                                gap: "2px",
+                                alignItems: "center",
+                                justifyContent: "space-between",
+                                width: "100%",
+                                flexWrap: "wrap",
+                                gap: "8px",
                                 fontFamily: "var(--font-cairo), system-ui, sans-serif",
                               }}>
                                 {(() => {
                                   const parsedSizes = p.sizes ? (typeof p.sizes === "string" ? JSON.parse(p.sizes) : p.sizes) : [];
                                   if (parsedSizes && parsedSizes.length > 0) {
                                     return (
-                                      <div style={{ display: "flex", alignItems: "center", gap: "6px", flexWrap: "wrap" }}>
-                                        <span style={{ fontSize: "16px", fontWeight: 900, color: "#8B0000" }}>
-                                          {parsedSizes[0].price} - {parsedSizes[parsedSizes.length - 1].price}
-                                        </span>
-                                        <span style={{ fontSize: "11.5px", color: "#7E5E49", fontWeight: 800 }}>ج.م</span>
-                                        <span style={{ fontSize: "10.5px", fontWeight: 800, background: "#FEF3C7", color: "#92400E", padding: "1px 6px", borderRadius: "4px" }}>
-                                          {parsedSizes.map((s: any) => s.nameAr).join(" • ")}
-                                        </span>
+                                      <div style={{ display: "flex", alignItems: "center", gap: "6px", flexWrap: "wrap", width: "100%" }}>
+                                        {parsedSizes.map((sz: any) => {
+                                          const inCartSz = cart.find((it) => it.product.id === p.id && it.selectedSize === sz.nameAr);
+                                          const szQty = inCartSz ? inCartSz.qty : 0;
+                                          const szLabel = sz.nameAr.includes("ساندوتش") ? "🥪 ساندوتش" :
+                                                          sz.nameAr.includes("مفتوح") ? "🧇 مفتوح" :
+                                                          sz.nameAr.includes("15") ? "🥞 15 ق" :
+                                                          sz.nameAr.includes("25") ? "🥞 25 ق" :
+                                                          sz.nameAr.includes("وسط") || sz.nameAr.includes("M") ? "🥤 وسط" :
+                                                          sz.nameAr.includes("كبير") || sz.nameAr.includes("L") ? "🥤 كبير" : sz.nameAr;
+                                          return (
+                                            <button
+                                              key={sz.nameAr}
+                                              type="button"
+                                              onClick={(e) => {
+                                                e.stopPropagation();
+                                                addToCart(p, [], sz);
+                                              }}
+                                              title={lang === "en" ? `Add ${sz.nameAr} (${sz.price} EGP)` : `إضافة ${sz.nameAr} (${sz.price} ج)`}
+                                              style={{
+                                                backgroundColor: szQty > 0 ? "#8B0000" : "#2B170E",
+                                                color: "#FFFFFF",
+                                                border: szQty > 0 ? "1.5px solid #EF4444" : "1px solid #4A2818",
+                                                borderRadius: "8px",
+                                                padding: "5px 9px",
+                                                fontSize: "11.5px",
+                                                fontWeight: 800,
+                                                cursor: "pointer",
+                                                display: "inline-flex",
+                                                alignItems: "center",
+                                                gap: "5px",
+                                                boxShadow: szQty > 0 ? "0 2px 10px rgba(139,0,0,0.35)" : "0 2px 6px rgba(0,0,0,0.08)",
+                                                transition: "all 0.15s ease",
+                                              }}
+                                            >
+                                              <span>{szLabel}</span>
+                                              <span style={{ color: "#FDE047", fontWeight: 900 }}>{sz.price}ج</span>
+                                              {szQty > 0 && (
+                                                <span style={{ background: "#FFFFFF", color: "#8B0000", borderRadius: "10px", padding: "0 5px", fontSize: "10px", fontWeight: 900 }}>
+                                                  {szQty}
+                                                </span>
+                                              )}
+                                            </button>
+                                          );
+                                        })}
+                                        <button
+                                          type="button"
+                                          onClick={(e) => {
+                                            e.stopPropagation();
+                                            setSelectedProduct(p);
+                                            setSelectedExtras([]);
+                                            playSound("click");
+                                          }}
+                                          title={lang === "en" ? "Customize & Add-ons" : "تخصيص الإضافات"}
+                                          style={{
+                                            backgroundColor: "#FAF6EE",
+                                            color: "#8B0000",
+                                            border: "1px dashed #8B0000",
+                                            borderRadius: "8px",
+                                            padding: "5px 8px",
+                                            fontSize: "11px",
+                                            fontWeight: 800,
+                                            cursor: "pointer",
+                                          }}
+                                        >
+                                          + إضافات
+                                        </button>
                                       </div>
                                     );
                                   }
 
-                                  return pricing.hasDiscount ? (
-                                    <div style={{ display: "flex", alignItems: "baseline", gap: "6px" }}>
-                                      <del style={{ fontSize: "12px", color: "#8C6546", textDecoration: "line-through" }}>
-                                        {p.basePrice}
-                                      </del>
-                                      <span style={{ fontSize: "17.5px", fontWeight: 900, color: "#16A34A" }}>
-                                        {pricing.finalPrice}
-                                      </span>
-                                      <span style={{ fontSize: "12px", color: "#16A34A", fontWeight: 700 }}>
-                                        {lang === "en" ? "EGP" : "ج.م"}
-                                      </span>
-                                    </div>
-                                  ) : (
-                                    <div style={{ display: "flex", alignItems: "baseline", gap: "6px" }}>
-                                      <span style={{ fontSize: "17px", fontWeight: 900, color: "#2B170E" }}>{p.basePrice}</span>
-                                      <span style={{ fontSize: "12px", color: "#8C6546", fontWeight: 700 }}>
-                                        {lang === "en" ? "EGP" : "ج.م"}
-                                      </span>
+                                  return (
+                                    <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", width: "100%" }}>
+                                      <div style={{ display: "flex", alignItems: "baseline", gap: "6px" }}>
+                                        {pricing.hasDiscount ? (
+                                          <>
+                                            <del style={{ fontSize: "12px", color: "#8C6546", textDecoration: "line-through" }}>
+                                              {p.basePrice}
+                                            </del>
+                                            <span style={{ fontSize: "17.5px", fontWeight: 900, color: "#16A34A" }}>
+                                              {pricing.finalPrice}
+                                            </span>
+                                            <span style={{ fontSize: "12px", color: "#16A34A", fontWeight: 700 }}>
+                                              {lang === "en" ? "EGP" : "ج.م"}
+                                            </span>
+                                          </>
+                                        ) : (
+                                          <>
+                                            <span style={{ fontSize: "17px", fontWeight: 900, color: "#2B170E" }}>{p.basePrice}</span>
+                                            <span style={{ fontSize: "12px", color: "#8C6546", fontWeight: 700 }}>
+                                              {lang === "en" ? "EGP" : "ج.م"}
+                                            </span>
+                                          </>
+                                        )}
+                                      </div>
+                                      <button
+                                        type="button"
+                                        onClick={(e) => {
+                                          e.stopPropagation();
+                                          addToCart(p, []);
+                                        }}
+                                        style={{
+                                          backgroundColor: inCartQty > 0 ? "#8B0000" : "#2B170E",
+                                          color: "#FFFFFF",
+                                          border: "none",
+                                          borderRadius: "100px",
+                                          padding: "6px 16px",
+                                          fontSize: "12.5px",
+                                          fontWeight: 900,
+                                          cursor: "pointer",
+                                          display: "inline-flex",
+                                          alignItems: "center",
+                                          gap: "6px",
+                                          boxShadow: inCartQty > 0 ? "0 2px 8px rgba(139,0,0,0.3)" : "0 2px 8px rgba(43,23,14,0.18)",
+                                          transition: "all 0.15s ease",
+                                          fontFamily: "var(--font-cairo), system-ui, sans-serif",
+                                        }}
+                                      >
+                                        <span>{inCartQty > 0 ? `✓ (${inCartQty})` : (lang === "en" ? "+ Add" : "+ أضف")}</span>
+                                      </button>
                                     </div>
                                   );
                                 })()}
                               </div>
-
-                              {/* Quick Add Pill Button (Smart: opens modal if product has sizes) */}
-                              <button
-                                type="button"
-                                onClick={(e) => {
-                                  e.stopPropagation();
-                                  const parsedSizes = p.sizes ? (typeof p.sizes === "string" ? JSON.parse(p.sizes) : p.sizes) : [];
-                                  if (parsedSizes && parsedSizes.length > 0) {
-                                    setSelectedProduct(p);
-                                    setSelectedExtras([]);
-                                    playSound("click");
-                                  } else {
-                                    addToCart(p, []);
-                                  }
-                                }}
-                                style={{
-                                  backgroundColor: inCartQty > 0 ? "#C6873E" : "#2B170E",
-                                  color: "#FFFFFF",
-                                  border: "none",
-                                  borderRadius: "100px",
-                                  padding: "6px 16px",
-                                  fontSize: "12.5px",
-                                  fontWeight: 900,
-                                  cursor: "pointer",
-                                  display: "inline-flex",
-                                  alignItems: "center",
-                                  gap: "6px",
-                                  boxShadow: inCartQty > 0 ? "0 2px 8px rgba(198,135,62,0.3)" : "0 2px 8px rgba(43,23,14,0.18)",
-                                  transition: "all 0.15s ease",
-                                  fontFamily: "var(--font-cairo), system-ui, sans-serif",
-                                }}
-                                onMouseEnter={(e) => {
-                                  e.currentTarget.style.backgroundColor = "#C6873E";
-                                  e.currentTarget.style.transform = "scale(1.05)";
-                                }}
-                                onMouseLeave={(e) => {
-                                  e.currentTarget.style.backgroundColor = inCartQty > 0 ? "#C6873E" : "#2B170E";
-                                  e.currentTarget.style.transform = "scale(1)";
-                                }}
-                              >
-                                <span>{inCartQty > 0 ? `✓ (${inCartQty})` : (lang === "en" ? "+ Add" : "+ أضف")}</span>
-                              </button>
                             </div>
                           </div>
 
@@ -1776,16 +1829,16 @@ export default function HomePage() {
           TRACK ORDER SECTION
       ══════════════════════════════════════════════════════════ */}
       <section id="track" style={{
-        background: "#FAF6EE",
-        borderTop: "1px solid #E8DAC8",
+        background: "transparent",
+        borderTop: "1px solid rgba(245, 158, 11, 0.2)",
         padding: "64px 20px",
       }}>
         <div style={{ maxWidth: "540px", margin: "0 auto", textAlign: "center" }}>
-          <div style={{ fontSize: "12px", fontWeight: 800, color: "#C6873E", letterSpacing: "2px", marginBottom: "8px" }}>● TRACK</div>
-          <h2 style={{ fontSize: "28px", fontWeight: 900, color: "#2B170E", marginBottom: "8px" }}>
+          <div style={{ fontSize: "12px", fontWeight: 800, color: "#F59E0B", letterSpacing: "2px", marginBottom: "8px" }}>● TRACK</div>
+          <h2 style={{ fontSize: "28px", fontWeight: 900, color: "#FFFFFF", marginBottom: "8px", textShadow: "0 2px 10px rgba(0,0,0,0.5)" }}>
             {lang === "en" ? "Track your order 📦" : "تتبع طلبك 📦"}
           </h2>
-          <p style={{ fontSize: "14px", color: "#6B4F3B", marginBottom: "28px" }}>
+          <p style={{ fontSize: "14px", color: "#FDE68A", marginBottom: "28px" }}>
             {lang === "en" ? "Enter order number or your phone number" : "أدخل رقم الطلب أو رقم موبايلك"}
           </p>
 
@@ -1866,7 +1919,7 @@ export default function HomePage() {
       <section id="about" style={{ maxWidth: "1000px", margin: "0 auto", padding: "64px 20px" }}>
         <div style={{ textAlign: "center", marginBottom: "40px" }}>
           <div style={{ fontSize: "12px", fontWeight: 800, color: "#C6873E", letterSpacing: "2px", marginBottom: "8px" }}>● ABOUT</div>
-          <h2 style={{ fontSize: "28px", fontWeight: 900, color: "#2B170E", margin: 0 }}>
+          <h2 style={{ fontSize: "28px", fontWeight: 900, color: "#FFFFFF", margin: 0, textShadow: "0 2px 10px rgba(0,0,0,0.5)" }}>
             {lang === "en" ? "About Waffle House" : "عن Waffle House"}
           </h2>
         </div>
@@ -1876,7 +1929,7 @@ export default function HomePage() {
             {
               icon: <MapPin size={28} color="#C6873E" />,
               title: "Our Location",
-              body: `${storeSettings.address}\nDelivery across 84 zones in Giza & Hadaeq Al Qubbah`,
+              body: `${storeSettings.address}\nFast delivery across Cairo & Hadaeq Al Qubbah zones`,
               link: null,
             },
             {
@@ -1967,7 +2020,7 @@ export default function HomePage() {
               fontFamily: "var(--font-playfair), Georgia, serif",
               fontSize: "18px", fontWeight: 800, color: "#FAF6EE",
             }}>
-              Waffle House <span style={{ color: "#C6873E", fontSize: "11px", letterSpacing: "2px" }}>{lang === "en" ? "DESSERTS" : "ديسرتس"}</span>
+              Waffle House <span style={{ color: "#C6873E", fontSize: "11px", letterSpacing: "2px" }}>{lang === "en" ? "Dessert" : "Dessert"}</span>
             </span>
           </div>
 

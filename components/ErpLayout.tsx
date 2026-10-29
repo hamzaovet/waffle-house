@@ -65,8 +65,8 @@ export default function ErpLayout({ children, activeItem }: ErpLayoutProps) {
   return (
     <div dir={dir} style={{
       minHeight: "100vh",
-      backgroundColor: "#F8F4EC",
-      color: "#2B170E",
+      background: "linear-gradient(135deg, #1C0500 0%, #290802 35%, #4A0E06 70%, #150300 100%)",
+      color: "#FFFFFF",
       display: "flex",
       fontFamily: "var(--font-cairo), system-ui, -apple-system, sans-serif",
     }}>
@@ -97,9 +97,9 @@ export default function ErpLayout({ children, activeItem }: ErpLayoutProps) {
         bottom: 0,
         ...(isMobile ? (dir === "rtl" ? { right: 0 } : { left: 0 }) : {}),
         flexShrink: 0,
-        backgroundColor: "#FFFFFF",
-        borderLeft: dir === "rtl" ? "1px solid #E8DAC8" : "none",
-        borderRight: dir === "ltr" ? "1px solid #E8DAC8" : "none",
+        backgroundColor: "#160401",
+        borderLeft: dir === "rtl" ? "1px solid #3E1005" : "none",
+        borderRight: dir === "ltr" ? "1px solid #3E1005" : "none",
         padding: "24px 16px",
         display: "flex",
         flexDirection: "column",
@@ -155,7 +155,7 @@ export default function ErpLayout({ children, activeItem }: ErpLayoutProps) {
                 <div style={{
                   fontSize: "16.5px",
                   fontWeight: 900,
-                  color: "#2B170E",
+                  color: "#FFFFFF",
                   fontFamily: "var(--font-playfair), Georgia, serif",
                   lineHeight: 1.15,
                 }}>
@@ -247,20 +247,20 @@ export default function ErpLayout({ children, activeItem }: ErpLayoutProps) {
                     fontSize: "13.5px",
                     fontWeight: isActive ? 900 : 700,
                     transition: "all 0.15s ease",
-                    background: isActive ? "linear-gradient(135deg, #D4954E, #C6873E)" : "transparent",
-                    color: isActive ? "#FFFFFF" : "#6B4F3B",
-                    boxShadow: isActive ? "0 4px 12px rgba(198, 135, 62, 0.25)" : "none",
+                    background: isActive ? "linear-gradient(135deg, #8B0000, #B91C1C)" : "transparent",
+                    color: isActive ? "#FFFFFF" : "#F3D8C8",
+                    boxShadow: isActive ? "0 4px 14px rgba(185, 28, 28, 0.45)" : "none",
                   }}
                   onMouseEnter={(e) => {
                     if (!isActive) {
-                      e.currentTarget.style.background = "#FAF6EE";
-                      e.currentTarget.style.color = "#2B170E";
+                      e.currentTarget.style.background = "rgba(255,255,255,0.08)";
+                      e.currentTarget.style.color = "#FFFFFF";
                     }
                   }}
                   onMouseLeave={(e) => {
                     if (!isActive) {
                       e.currentTarget.style.background = "transparent";
-                      e.currentTarget.style.color = "#6B4F3B";
+                      e.currentTarget.style.color = "#F3D8C8";
                     }
                   }}
                 >
@@ -286,9 +286,9 @@ export default function ErpLayout({ children, activeItem }: ErpLayoutProps) {
               alignItems: "center",
               justifyContent: "center",
               gap: "8px",
-              background: currentActive === "users" ? "linear-gradient(135deg, #D4954E, #C6873E)" : "#FAF6EE",
-              border: "1px solid #E8DAC8",
-              color: currentActive === "users" ? "#FFFFFF" : "#2B170E",
+              background: currentActive === "users" ? "linear-gradient(135deg, #8B0000, #B91C1C)" : "#220803",
+              border: "1px solid #4A1205",
+              color: currentActive === "users" ? "#FFFFFF" : "#F3D8C8",
               padding: "10px 14px",
               borderRadius: "14px",
               textDecoration: "none",
@@ -372,11 +372,11 @@ export default function ErpLayout({ children, activeItem }: ErpLayoutProps) {
         <header style={{
           minHeight: "64px",
           padding: isMobile ? "10px 14px" : "0 28px",
-          borderBottom: "1px solid #E8DAC8",
+          borderBottom: "1px solid #3E1005",
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
-          backgroundColor: "#FFFFFF",
+          backgroundColor: "#1C0500",
           gap: "10px",
           flexWrap: "wrap",
         }}>
@@ -425,7 +425,7 @@ export default function ErpLayout({ children, activeItem }: ErpLayoutProps) {
             </div>
             <div>
               <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
-                <span suppressHydrationWarning style={{ fontSize: "14px", fontWeight: 900, color: "#2B170E" }}>
+                <span suppressHydrationWarning style={{ fontSize: "14px", fontWeight: 900, color: "#FFFFFF" }}>
                   {isOwner ? "Owner" : currentUser?.name || "Owner"}
                 </span>
                 <span style={{ fontSize: "11px", color: "#C6873E", fontWeight: 700 }}>

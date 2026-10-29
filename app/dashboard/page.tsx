@@ -796,7 +796,8 @@ export default function DashboardOrdersPage() {
               style={{
                 fontSize: "26px",
                 fontWeight: 900,
-                color: "#2B170E",
+                color: "#FFFFFF",
+                textShadow: "0 2px 10px rgba(0,0,0,0.5)",
                 margin: "0 0 6px 0",
                 lineHeight: 1.2,
               }}
@@ -806,7 +807,7 @@ export default function DashboardOrdersPage() {
             <p
               style={{
                 fontSize: "13.5px",
-                color: "#7E5E49",
+                color: "#FDE68A",
                 margin: 0,
                 fontWeight: 600,
               }}
@@ -991,11 +992,11 @@ export default function DashboardOrdersPage() {
                   gap: "7px",
                   padding: "8px 16px",
                   borderRadius: "100px",
-                  border: isSelected ? "none" : "1px solid #E8DAC8",
                   background: isSelected
-                    ? "linear-gradient(135deg, #D4954E, #C6873E)"
-                    : "#FFFFFF",
-                  color: isSelected ? "#FFFFFF" : "#6B4F3B",
+                    ? "linear-gradient(135deg, #8B0000, #B91C1C)"
+                    : "#240803",
+                  border: isSelected ? "1.5px solid #F59E0B" : "1px solid #4E1408",
+                  color: isSelected ? "#FFFFFF" : "#F3D8C8",
                   fontSize: "13px",
                   fontWeight: isSelected ? 900 : 700,
                   cursor: "pointer",

@@ -37,7 +37,7 @@ export default function LoginPage() {
     // If maestro username is entered and PIN not filled yet, prompt for PIN
     if (isMaestroUser && !pin.trim()) {
       setShowPinInput(true);
-      setError(t("مطلوب إدخال رمز الأمان PIN المكون من 6 أرقام لتسجيل دخول المالك المعتمد (157230)", "PIN code required for Master Owner login"));
+      setError(t("مطلوب إدخال رمز الأمان المشفر (PIN) المكون من 6 أرقام لتسجيل دخول المالك", "PIN code required for Master Owner login"));
       return;
     }
 
@@ -76,7 +76,7 @@ export default function LoginPage() {
       dir={dir}
       style={{
         minHeight: "100vh",
-        background: "linear-gradient(135deg, #FAF7F2 0%, #F5EDE4 100%)",
+        background: "radial-gradient(ellipse at top, #7F1D1D 0%, #300602 45%, #150300 100%)",
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
@@ -145,9 +145,10 @@ export default function LoginPage() {
           style={{
             fontSize: "27px",
             fontWeight: 900,
-            color: "#3E0E00",
+            color: "#FFFFFF",
             margin: "0 0 6px 0",
             letterSpacing: "0.2px",
+            textShadow: "0 2px 10px rgba(0,0,0,0.5)",
           }}
         >
           وافل هاوس • Waffle House 🧇🏠
@@ -155,7 +156,7 @@ export default function LoginPage() {
         <p
           style={{
             fontSize: "13.5px",
-            color: "#6E4532",
+            color: "#FDE68A",
             margin: 0,
             fontWeight: 700,
           }}
@@ -334,7 +335,7 @@ export default function LoginPage() {
                 maxLength={6}
                 value={pin}
                 onChange={(e) => setPin(e.target.value)}
-                placeholder="•••••• (157230)"
+                placeholder="• • • • • •"
                 style={{
                   width: "100%",
                   height: "46px",
