@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
@@ -9,13 +9,13 @@ import { playSound } from "@/lib/sounds";
 import {
   ChefHat, UtensilsCrossed, Package, CircleDollarSign,
   Users, Store, LogOut, Shield, Settings, Bell, Globe, UserCheck,
-  Menu, X
+  Menu, X, MonitorSmartphone
 } from "lucide-react";
 import SettingsModal from "@/components/SettingsModal";
 
 interface ErpLayoutProps {
   children: React.ReactNode;
-  activeItem?: "orders" | "menu" | "inventory" | "reports" | "users" | "customers" | "captains";
+  activeItem?: "orders" | "menu" | "inventory" | "reports" | "users" | "customers" | "captains" | "cashier";
 }
 
 export default function ErpLayout({ children, activeItem }: ErpLayoutProps) {
@@ -40,7 +40,7 @@ export default function ErpLayout({ children, activeItem }: ErpLayoutProps) {
 
   // Determine current active item from path if not explicitly provided
   const currentActive = activeItem || (
-    pathname === "/dashboard" || pathname === "/kitchen" || pathname === "/cashier" ? "orders"
+    pathname === "/dashboard" || pathname === "/kitchen" ? "orders" : pathname === "/cashier" ? "cashier"
     : pathname === "/menu-admin" || pathname === "/offers-admin" ? "menu"
     : pathname === "/inventory" ? "inventory"
     : pathname === "/reports" || pathname === "/expenses" ? "reports"
@@ -219,6 +219,12 @@ export default function ErpLayout({ children, activeItem }: ErpLayoutProps) {
                 href: "/reports",
                 label: t("الحسابات والأرباح", "Finances & Profits"),
                 icon: CircleDollarSign,
+              },
+              {
+                id: "cashier",
+                href: "/cashier",
+                label: t("ماكينة الكاشير (POS)", "POS / Counter Sale"),
+                icon: MonitorSmartphone,
               },
               {
                 id: "customers",
