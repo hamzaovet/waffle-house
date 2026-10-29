@@ -1,4 +1,4 @@
-package com.wafflecake.desserts;
+package com.wafflehouse.cairo;
 
 import com.getcapacitor.BridgeActivity;
 

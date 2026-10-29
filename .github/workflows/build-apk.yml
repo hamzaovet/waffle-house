@@ -49,8 +49,8 @@ jobs:
           ./gradlew :app:assembleDebug --stacktrace 2>&1 | tee ../gradle-build.log
           cd ..
           mkdir -p dist-apk
-          cp android/app/build/outputs/apk/debug/app-debug.apk dist-apk/waffle-cake.apk
-          ls -lh dist-apk/waffle-cake.apk
+          cp android/app/build/outputs/apk/debug/app-debug.apk dist-apk/waffle-house.apk
+          ls -lh dist-apk/waffle-house.apk
 
       - name: Push Error Log on Failure
         if: failure()
@@ -66,36 +66,35 @@ jobs:
       - name: Upload APK Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: waffle-cake-apk
-          path: dist-apk/waffle-cake.apk
+          name: waffle-house-apk
+          path: dist-apk/waffle-house.apk
           if-no-files-found: error
 
       - name: Create or Update GitHub Release
         uses: softprops/action-gh-release@v2
         if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
         with:
-          tag_name: v1.0.4
-          name: "Waffle & Cake Android App v1.0.4"
+          tag_name: v1.0.5
+          name: "Waffle House Cairo Android App v1.0.5"
           draft: false
           prerelease: false
           make_latest: true
           body: |
-            ## 🧇 تطبيق Waffle & Cake (وافل كيك) للأندرويد - النسخة الرسمية v1.0.4
+            ## 🧇 تطبيق Waffle House (وافل هاوس - القاهرة) للأندرويد - النسخة الرسمية v1.0.5
             
-            أهلاً بكم في تطبيق Waffle & Cake للأندرويد مع الصور المحلية الأصلية وإصلاح قسم العروض والتحكم اللحظي!
+            أهلاً بكم في تطبيق Waffle House للأندرويد - فرع حدائق القبة (شارع مصر والسودان - بجوار حلواني الشيبي - القاهرة)!
             
             ### 📱 مميزات التطبيق:
-            - تجربة استخدام سريعة ومباشرة كأبليكيشن أصيل دون الحاجة للمتصفح
-            - حاسبة توصيل ذكية لـ 84 منطقة في 6 أكتوبر والجيزة مع حساب وقت التوصيل والرسوم بدقة
-            - متابعة لحظية لكافة الطلبات وتنبيهات صوتية فورية
-            - نظام شات مباشر ومعزول تماماً ومحمي بين العميل وإدارة المطعم
-            - عرض المنيو والعروض الخاصة والكوبونات بدقة عالية
+            - تجربة طلب تيك أواي ودليفري سريعة وفورية لكافة مناطق القاهرة
+            - متابعة مباشرة لحالة الطلب لحظة بلحظة مع تنبيهات صوتية فورية
+            - قائمة المنيو الكاملة الفاخرة للوافل والبان كيك والموتشي والبوبا وكافة الحلويات
+            - ماكينة كاشير وبيع مباشر وطباعة فواتير ريسيت 80mm
             
             ### 📥 طريقة التثبيت:
-            1. اضغط على رابط التحميل المباشر بالأسفل `waffle-cake.apk`.
+            1. اضغط على رابط التحميل المباشر بالأسفل `waffle-house.apk`.
             2. افتح الملف واضغط **تثبيت (Install)**.
             3. إذا ظهرت رسالة الأمان في هاتفك، اختر **السماح بالتثبيت من هذا المصدر**.
             4. افتح التطبيق واستمتع بأشهى وافل وحلويات!
-          files: dist-apk/waffle-cake.apk
+          files: dist-apk/waffle-house.apk
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

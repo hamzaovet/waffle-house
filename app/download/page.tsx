@@ -187,7 +187,7 @@ export default function DownloadAppPage() {
           fontWeight: 600,
         }}
       >
-        تجربة طلب فورية وسلسة لأشهى الوافل، الميني بانكيك، والتشيز كيك، مع حاسبة مناطق التوصيل الذكية لـ 84 منطقة، وشات مباشر مع المطعم.
+        تجربة طلب فورية وسلسة لأشهى الوافل، الميني بانكيك، والموتشي، مع توصيل سريع لكافة مناطق القاهرة (فرع حدائق القبة - شارع مصر والسودان).
       </p>
 
       {/* Auto Countdown Banner if triggered */}
@@ -338,7 +338,7 @@ export default function DownloadAppPage() {
           {/* Direct link fallback */}
           <div style={{ textAlign: "center" }}>
             <a 
-              href="https://github.com/hamzaovet/waffle-cake/releases/latest/download/waffle-cake.apk"
+              href="https://github.com/hamzaovet/waffle-house/releases/download/v1.0.5/waffle-house.apk"
               target="_blank"
               rel="noopener noreferrer"
               style={{

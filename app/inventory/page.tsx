@@ -332,10 +332,10 @@ export default function InventoryPage() {
           marginBottom: "24px",
         }}>
           <div>
-            <h1 style={{ margin: "0 0 6px 0", fontSize: "26px", fontWeight: 900, color: "#2B170E" }}>
+            <h1 style={{ margin: "0 0 6px 0", fontSize: "26px", fontWeight: 900, color: "#FFFFFF", textShadow: "0 2px 10px rgba(0,0,0,0.5)" }}>
               {t("المخزن والتكاليف 📦", "Inventory & Costs 📦")}
             </h1>
-            <p style={{ margin: 0, fontSize: "13.5px", color: "#7E5E49", fontWeight: 600 }}>
+            <p style={{ margin: 0, fontSize: "13.5px", color: "#FDE68A", fontWeight: 600 }}>
               {t("متابعة أرصدة الخامات، حساب متوسط التكلفة المرجح، وجرد استهلاك الفترة", "Track raw materials, calculate Weighted Average Cost, and audit period consumption")}
             </p>
           </div>

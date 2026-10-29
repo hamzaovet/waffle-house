@@ -183,14 +183,14 @@ export default function ReportsPage() {
             <h1 style={{
               fontSize: "26px",
               fontWeight: 900,
-              color: "#2B170E",
+              color: "#FFFFFF", textShadow: "0 2px 10px rgba(0,0,0,0.5)",
               margin: "0 0 6px 0",
             }}>
               {t("الحسابات والأرباح 💰", "Finances & Profits 💰")}
             </h1>
             <p style={{
               fontSize: "13.5px",
-              color: "#7E5E49",
+              color: "#FDE68A",
               margin: 0,
               fontWeight: 600,
             }}>
@@ -410,7 +410,7 @@ export default function ReportsPage() {
                   <h3 style={{ margin: "0 0 4px 0", fontSize: "17px", fontWeight: 900, color: "#2B170E" }}>
                     {t("سجل المصروفات المسجلة 🧾", "Recorded Expenses Log 🧾")}
                   </h3>
-                  <p style={{ margin: 0, fontSize: "12px", color: "#7E5E49" }}>
+                  <p style={{ margin: 0, fontSize: "12px", color: "#FDE68A" }}>
                     {t("جميع المصروفات اليومية وخصمها المباشر من صافي الأرباح", "All daily expenses and direct deduction from net profit")}
                   </p>
                 </div>

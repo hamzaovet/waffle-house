@@ -158,13 +158,13 @@ export default function CustomersPage() {
               style={{
                 fontSize: "26px",
                 fontWeight: 900,
-                color: "#2B170E",
+                color: "#FFFFFF", textShadow: "0 2px 10px rgba(0,0,0,0.5)",
                 margin: "0 0 6px 0",
               }}
             >
               {t("قاعدة بيانات العملاء (CRM)", "Customer Relationship Database")}
             </h1>
-            <p style={{ fontSize: "13.5px", color: "#7E5E49", margin: 0, fontWeight: 600 }}>
+            <p style={{ fontSize: "13.5px", color: "#FDE68A", margin: 0, fontWeight: 600 }}>
               {t(
                 "سجل العملاء الكامل — التوثيق بالجيميل — تكرار الطلبات وإجمالي المبيعات — التواصل المباشر",
                 "Full customer profiles — Gmail OTP verification — Orders frequency & direct WhatsApp contact"
@@ -402,7 +402,7 @@ export default function CustomersPage() {
           >
             <Users size={44} color="#C6873E" style={{ margin: "0 auto 12px" }} />
             <h3 style={{ margin: 0, fontSize: "17px", color: "#2B170E", fontWeight: 800 }}>لا يوجد عملاء يطابقون البحث</h3>
-            <p style={{ margin: "6px 0 0 0", color: "#7E5E49", fontSize: "13px" }}>
+            <p style={{ margin: "6px 0 0 0", color: "#FDE68A", fontSize: "13px" }}>
               يمكنك إضافة عميل جديد يدوي أو انتظار طلبات العملاء عبر الموقع
             </p>
           </div>
