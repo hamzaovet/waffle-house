@@ -1,19 +1,10 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 
-let cachedMenu: any = null;
-let lastMenuTime = 0;
-const MENU_TTL_MS = 60_000; // 60 seconds cache
+export const dynamic = "force-dynamic";
 
 export async function GET() {
   try {
-    const now = Date.now();
-    if (cachedMenu && now - lastMenuTime < MENU_TTL_MS) {
-      return NextResponse.json(cachedMenu, {
-        headers: { "Cache-Control": "public, s-maxage=60, stale-while-revalidate=120" },
-      });
-    }
-
     const products = await prisma.product.findMany({
       where: { isAvailable: true },
       orderBy: [{ category: "asc" }, { sortOrder: "asc" }],
@@ -23,22 +14,20 @@ export async function GET() {
         nameEn: true,
         category: true,
         basePrice: true,
+        sizes: true,
         image: true,
         description: true,
         isAvailable: true,
+        sortOrder: true,
       },
     });
-
-    cachedMenu = products;
-    lastMenuTime = now;
 
     return NextResponse.json(products, {
       headers: {
-        "Cache-Control": "public, s-maxage=60, stale-while-revalidate=120",
+        "Cache-Control": "no-store, max-age=0",
       },
     });
   } catch (err: unknown) {
-    if (cachedMenu) return NextResponse.json(cachedMenu);
     return NextResponse.json({ error: String(err) }, { status: 500 });
   }
 }

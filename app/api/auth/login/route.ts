@@ -1,4 +1,4 @@
-import { NextResponse } from "next/server";
+﻿import { NextResponse } from "next/server";
 import { createHash } from "crypto";
 import { prisma } from "@/lib/prisma";
 
@@ -51,12 +51,12 @@ export async function POST(req: Request) {
       }
 
       // STRICT PIN CHECK FOR OWNER / MAESTRO:
-      // Never allow owner login without the 6-digit Security PIN (157230)!
+      // Never allow owner login without the 6-digit Security PIN!
       if (isMaestro) {
         if (!pin) {
           return NextResponse.json({
             requirePin: true,
-            error: "مطلوب رمز الأمان PIN المكون من 6 أرقام لتسجيل دخول المالك المعتمد (157230)",
+            error: "مطلوب رمز الأمان PIN المكون من 6 أرقام لتسجيل دخول المالك المعتمد ",
           }, { status: 200 });
         }
         if (user.pin && pin !== user.pin) {
