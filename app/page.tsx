@@ -11,7 +11,7 @@ import {
   MapPin, Phone, Clock, CheckCircle2, Loader2,
   Star, Bike, CreditCard, ChefHat, ChevronDown,
   Truck, Sparkles, Wallet, BadgeCheck,
-  PartyPopper, GraduationCap, Flame, Gift,
+  PartyPopper, GraduationCap, Flame, Gift, Store,
 } from "lucide-react";
 
 interface OfferCard {
@@ -417,7 +417,7 @@ export default function HomePage() {
   }, [productSizes]);
   const [selectedExtras, setSelectedExtras]   = useState<string[]>([]);
   const [selectedVariantSize, setSelectedVariantSize] = useState<{ nameAr: string; nameEn?: string; price: number } | null>(null);
-  const [orderType, setOrderType] = useState<"delivery" | "takeaway" | "dinein">("delivery");
+  const [orderType, setOrderType] = useState<"delivery" | "takeaway" | "dinein">("takeaway");
   const categoryScrollRef = useRef<HTMLDivElement>(null);
 
   function scrollCategories(direction: "left" | "right") {
@@ -898,6 +898,32 @@ export default function HomePage() {
               <span>{lang === "en" ? "Order now" : "اطلب الآن 🧇"}</span>
               <span style={{ fontSize: "16px", fontWeight: 900 }}>{lang === "en" ? "→" : "←"}</span>
             </a>
+
+            {/* Direct Counter POS Button */}
+            <Link
+              href="/cashier"
+              style={{
+                background: "linear-gradient(135deg, #8B0000, #991B1B)",
+                border: "1.5px solid #F59E0B",
+                color: "#FFFFFF",
+                fontWeight: 900,
+                padding: "12px 24px",
+                borderRadius: "12px",
+                textDecoration: "none",
+                fontSize: "15px",
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "8px",
+                boxShadow: "0 4px 16px rgba(139, 0, 0, 0.4)",
+                fontFamily: "var(--font-cairo), system-ui, sans-serif",
+                transition: "transform 0.15s ease",
+              }}
+              onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.transform = "scale(1.03)"; }}
+              onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.transform = "scale(1)"; }}
+            >
+              <Store size={18} color="#F59E0B" />
+              <span>{lang === "en" ? "Counter POS (Takeaway)" : "كاشير وبيع مباشر تيك أواي (POS) 🖨️"}</span>
+            </Link>
 
             {/* Track Button */}
             <a
@@ -1627,23 +1653,23 @@ export default function HomePage() {
                                 justifyContent: "space-between",
                                 width: "100%",
                                 flexWrap: "wrap",
-                                gap: "8px",
+                                gap: "6px",
                                 fontFamily: "var(--font-cairo), system-ui, sans-serif",
                               }}>
                                 {(() => {
                                   const parsedSizes = p.sizes ? (typeof p.sizes === "string" ? JSON.parse(p.sizes) : p.sizes) : [];
                                   if (parsedSizes && parsedSizes.length > 0) {
                                     return (
-                                      <div style={{ display: "flex", alignItems: "center", gap: "6px", flexWrap: "wrap", width: "100%" }}>
+                                      <div style={{ display: "grid", gridTemplateColumns: `repeat(${parsedSizes.length}, 1fr)`, gap: "6px", width: "100%" }}>
                                         {parsedSizes.map((sz: any) => {
                                           const inCartSz = cart.find((it) => it.product.id === p.id && it.selectedSize === sz.nameAr);
                                           const szQty = inCartSz ? inCartSz.qty : 0;
                                           const szLabel = sz.nameAr.includes("ساندوتش") ? "🥪 ساندوتش" :
                                                           sz.nameAr.includes("مفتوح") ? "🧇 مفتوح" :
-                                                          sz.nameAr.includes("15") ? "🥞 15 ق" :
-                                                          sz.nameAr.includes("25") ? "🥞 25 ق" :
-                                                          sz.nameAr.includes("وسط") || sz.nameAr.includes("M") ? "🥤 وسط" :
-                                                          sz.nameAr.includes("كبير") || sz.nameAr.includes("L") ? "🥤 كبير" : sz.nameAr;
+                                                          sz.nameAr.includes("15") ? "🥞 15 قطعة" :
+                                                          sz.nameAr.includes("25") ? "🥞 25 قطعة" :
+                                                          sz.nameAr.includes("وسط") || sz.nameAr.includes("M") ? "🥤 وسط M" :
+                                                          sz.nameAr.includes("كبير") || sz.nameAr.includes("L") ? "🥤 كبير L" : sz.nameAr;
                                           return (
                                             <button
                                               key={sz.nameAr}
@@ -1652,55 +1678,33 @@ export default function HomePage() {
                                                 e.stopPropagation();
                                                 addToCart(p, [], sz);
                                               }}
-                                              title={lang === "en" ? `Add ${sz.nameAr} (${sz.price} EGP)` : `إضافة ${sz.nameAr} (${sz.price} ج)`}
                                               style={{
                                                 backgroundColor: szQty > 0 ? "#8B0000" : "#2B170E",
                                                 color: "#FFFFFF",
-                                                border: szQty > 0 ? "1.5px solid #EF4444" : "1px solid #4A2818",
-                                                borderRadius: "8px",
-                                                padding: "5px 9px",
+                                                border: szQty > 0 ? "2px solid #F59E0B" : "1px solid #4A2818",
+                                                borderRadius: "9px",
+                                                padding: "7px 4px",
                                                 fontSize: "11.5px",
-                                                fontWeight: 800,
+                                                fontWeight: 900,
                                                 cursor: "pointer",
-                                                display: "inline-flex",
+                                                display: "flex",
+                                                flexDirection: "column",
                                                 alignItems: "center",
-                                                gap: "5px",
-                                                boxShadow: szQty > 0 ? "0 2px 10px rgba(139,0,0,0.35)" : "0 2px 6px rgba(0,0,0,0.08)",
+                                                gap: "2px",
+                                                boxShadow: szQty > 0 ? "0 4px 12px rgba(139,0,0,0.4)" : "0 2px 6px rgba(0,0,0,0.1)",
                                                 transition: "all 0.15s ease",
                                               }}
                                             >
                                               <span>{szLabel}</span>
-                                              <span style={{ color: "#FDE047", fontWeight: 900 }}>{sz.price}ج</span>
+                                              <span style={{ color: "#FDE047", fontWeight: 900, fontSize: "12.5px" }}>{sz.price} ج.م</span>
                                               {szQty > 0 && (
-                                                <span style={{ background: "#FFFFFF", color: "#8B0000", borderRadius: "10px", padding: "0 5px", fontSize: "10px", fontWeight: 900 }}>
-                                                  {szQty}
+                                                <span style={{ background: "#FFFFFF", color: "#8B0000", borderRadius: "100px", padding: "0 6px", fontSize: "9.5px", fontWeight: 900 }}>
+                                                  تمت الإضافة ({szQty}) ✓
                                                 </span>
                                               )}
                                             </button>
                                           );
                                         })}
-                                        <button
-                                          type="button"
-                                          onClick={(e) => {
-                                            e.stopPropagation();
-                                            setSelectedProduct(p);
-                                            setSelectedExtras([]);
-                                            playSound("click");
-                                          }}
-                                          title={lang === "en" ? "Customize & Add-ons" : "تخصيص الإضافات"}
-                                          style={{
-                                            backgroundColor: "#FAF6EE",
-                                            color: "#8B0000",
-                                            border: "1px dashed #8B0000",
-                                            borderRadius: "8px",
-                                            padding: "5px 8px",
-                                            fontSize: "11px",
-                                            fontWeight: 800,
-                                            cursor: "pointer",
-                                          }}
-                                        >
-                                          + إضافات
-                                        </button>
                                       </div>
                                     );
                                   }
@@ -2318,92 +2322,72 @@ export default function HomePage() {
               );
             })()}
 
-            {/* Interactive Size / Type Variant Selector (مفتوح / ساندوتش، 15 / 25 قطعة، M / L) */}
-            {productSizes && productSizes.length > 0 && (
-              <div style={{ marginTop: "16px", marginBottom: "16px" }}>
-                <p style={{ fontSize: "13.5px", fontWeight: 800, color: "#2B170E", marginBottom: "10px" }}>
-                  {lang === "en" ? "Select Size / Type:" : "اختر الحجم أو النوع:"}
+            {/* Direct Choice Buttons (No extras, no hassle: Pick between the two sizes!) */}
+            {productSizes && productSizes.length > 0 ? (
+              <div style={{ marginTop: "20px" }}>
+                <p style={{ fontSize: "14px", fontWeight: 900, color: "#2B170E", marginBottom: "12px", textAlign: "center" }}>
+                  {lang === "en" ? "Select Option to Add to Cart:" : "اختر النوع المطلوب لإضافته للسلة فوراً:"}
                 </p>
-                <div style={{ display: "grid", gridTemplateColumns: `repeat(${productSizes.length}, 1fr)`, gap: "10px" }}>
+                <div style={{ display: "grid", gridTemplateColumns: `repeat(${productSizes.length}, 1fr)`, gap: "12px" }}>
                   {productSizes.map((sz: any) => {
-                    const isSelected = (selectedVariantSize?.nameAr === sz.nameAr) || (!selectedVariantSize && sz === productSizes[0]);
+                    const szLabel = sz.nameAr.includes("ساندوتش") ? "🥪 ساندوتش" :
+                                    sz.nameAr.includes("مفتوح") ? "🧇 مفتوح" :
+                                    sz.nameAr.includes("15") ? "🥞 15 قطعة" :
+                                    sz.nameAr.includes("25") ? "🥞 25 قطعة" :
+                                    sz.nameAr.includes("وسط") || sz.nameAr.includes("M") ? "🥤 وسط (M)" :
+                                    sz.nameAr.includes("كبير") || sz.nameAr.includes("L") ? "🥤 كبير (L)" : sz.nameAr;
                     return (
                       <button
                         key={sz.nameAr}
                         type="button"
                         onClick={() => {
-                          setSelectedVariantSize(sz);
-                          playSound("click");
+                          addToCart(selectedProduct, [], sz);
+                          setSelectedProduct(null);
                         }}
                         style={{
-                          padding: "10px 12px",
-                          borderRadius: "12px",
-                          border: isSelected ? "2px solid #8B0000" : "1.5px solid #E8DAC8",
-                          background: isSelected ? "linear-gradient(135deg, #8B0000, #991B1B)" : "#FAF6EE",
-                          color: isSelected ? "#FFFFFF" : "#2B170E",
+                          padding: "16px 12px",
+                          borderRadius: "16px",
+                          border: "2px solid #8B0000",
+                          background: "linear-gradient(135deg, #8B0000 0%, #B91C1C 100%)",
+                          color: "#FFFFFF",
                           cursor: "pointer",
                           display: "flex",
                           flexDirection: "column",
                           alignItems: "center",
-                          gap: "3px",
-                          boxShadow: isSelected ? "0 4px 14px rgba(139,0,0,0.28)" : "none",
+                          gap: "6px",
+                          boxShadow: "0 6px 20px rgba(139,0,0,0.35)",
                           transition: "all 0.15s ease",
                         }}
                       >
-                        <span style={{ fontSize: "13px", fontWeight: 900 }}>
-                          {lang === "en" ? (sz.nameEn || sz.nameAr) : sz.nameAr}
-                        </span>
-                        <span style={{ fontSize: "12px", opacity: 0.9, fontWeight: 700 }}>
-                          {sz.price} {lang === "en" ? "EGP" : "ج.م"}
+                        <span style={{ fontSize: "16px", fontWeight: 900 }}>{szLabel}</span>
+                        <span style={{ fontSize: "19px", fontWeight: 900, color: "#FDE047" }}>{sz.price} ج.م</span>
+                        <span style={{ fontSize: "11px", opacity: 0.9, background: "rgba(0,0,0,0.25)", padding: "2px 8px", borderRadius: "100px" }}>
+                          {lang === "en" ? "Add to Cart 🛒" : "اضغط للإضافة 🛒"}
                         </span>
                       </button>
                     );
                   })}
                 </div>
               </div>
+            ) : (
+              <button
+                type="button"
+                onClick={() => {
+                  addToCart(selectedProduct, []);
+                  setSelectedProduct(null);
+                }}
+                style={{
+                  width: "100%", marginTop: "22px",
+                  background: "linear-gradient(135deg, #8B0000, #B91C1C)",
+                  color: "#FFFFFF", fontWeight: 900, padding: "16px",
+                  borderRadius: "16px", border: "none", cursor: "pointer",
+                  fontSize: "16px", display: "flex", alignItems: "center", justifyContent: "center", gap: "10px",
+                  boxShadow: "0 6px 20px rgba(139,0,0,0.35)",
+                }}
+              >
+                <ShoppingCart size={20} /> {lang === "en" ? `Add to Cart (${selectedProduct.basePrice} EGP)` : `أضف للسلة (${selectedProduct.basePrice} ج.م)`}
+              </button>
             )}
-
-            <div style={{ marginTop: "18px" }}>
-              <p style={{ fontSize: "13px", fontWeight: 700, color: "#6B4F3B", marginBottom: "12px" }}>
-                {lang === "en" ? "Add-ons (optional):" : "إضافات (اختياري):"}
-              </p>
-              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "10px" }}>
-                {currentExtras.map((ex) => {
-                  const isSelected = selectedExtras.includes(ex.label);
-                  return (
-                    <button key={ex.label}
-                      onClick={() => {
-                        setSelectedExtras((p) => p.includes(ex.label) ? p.filter((e) => e !== ex.label) : [...p, ex.label]);
-                        playSound("click");
-                      }}
-                      style={{
-                        padding: "11px 14px", borderRadius: "12px", fontSize: "13px", fontWeight: 700,
-                        cursor: "pointer", border: "1px solid",
-                        display: "flex", justifyContent: "space-between", alignItems: "center",
-                        transition: "all 0.15s",
-                        background: isSelected ? "linear-gradient(135deg, #D4954E, #C6873E)" : "#FAF6EE",
-                        borderColor: isSelected ? "#C6873E" : "#E8DAC8",
-                        color: isSelected ? "#FFFFFF" : "#4A2814",
-                      }}
-                    >
-                      <span>{ex.label}</span>
-                      <span style={{ opacity: 0.8, fontSize: "11px" }}>+{ex.price}</span>
-                    </button>
-                  );
-                })}
-              </div>
-            </div>
-
-            <button onClick={() => addToCart(selectedProduct, selectedExtras, selectedVariantSize)} style={{
-              width: "100%", marginTop: "22px",
-              background: "linear-gradient(135deg, #D4954E, #C6873E)",
-              color: "#FFFFFF", fontWeight: 900, padding: "15px",
-              borderRadius: "14px", border: "none", cursor: "pointer",
-              fontSize: "16px", display: "flex", alignItems: "center", justifyContent: "center", gap: "10px",
-              boxShadow: "0 4px 20px rgba(198, 135, 62, 0.4)",
-            }}>
-              <ShoppingCart size={18} /> {lang === "en" ? "Add to Cart" : "أضف للسلة"}
-            </button>
           </div>
         </div>
       )}
@@ -2445,9 +2429,9 @@ export default function HomePage() {
               border: "1px solid #E8DAC8",
             }}>
               {[
-                { val: "delivery", label: "🛵 دليفري", sub: "توصيل سريع" },
-                { val: "takeaway", label: "🥡 تيك أواي", sub: "استلام فرع (0 ج)" },
-                { val: "dinein",   label: "🍽️ صالة",   sub: "داخل المحل (0 ج)" },
+                { val: "takeaway", label: "🥡 تيك أواي (استلام فرع)", sub: "مجاناً بدون مصاريف توصيل (0 ج)" },
+                { val: "delivery", label: "🛵 دليفري وتوصيل", sub: "توصيل سريع لمناطق القاهرة" },
+                { val: "dinein",   label: "🍽️ صالة",   sub: "تناول داخل المحل (0 ج)" },
               ].map((t) => (
                 <button
                   key={t.val}
