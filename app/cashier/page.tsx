@@ -523,7 +523,7 @@ export default function CashierPage() {
             {/* ── RIGHT: Menu Catalog ── */}
             <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
               {/* Category Filter */}
-              <div style={{ display: "flex", gap: "6px", overflowX: "auto", paddingBottom: "4px" }}>
+              <div style={{ display: "flex", gap: "6px", overflowX: "auto", paddingBottom: "6px", WebkitOverflowScrolling: "touch", scrollbarWidth: "none", msOverflowStyle: "none" }}>
                 {categories.map((cat) => (
                   <button
                     key={cat} type="button"
@@ -574,12 +574,15 @@ export default function CashierPage() {
                         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "6px" }}>
                           {parsedSizes.map((sz) => {
                             const inTicket = ticketItems.find((i) => i.product.id === p.id && i.variantName === sz.nameAr);
-                            const szLabel = sz.nameAr.includes("ساندوتش") ? "🥪 ساندوتش"
-                              : sz.nameAr.includes("مفتوح") ? "🧇 مفتوح"
-                              : sz.nameAr.includes("15") ? "🥞 15 قطعة"
-                              : sz.nameAr.includes("25") ? "🥞 25 قطعة"
-                              : sz.nameAr.includes("وسط") || sz.nameAr.includes("M") ? "🥤 وسط M"
-                              : sz.nameAr.includes("كبير") || sz.nameAr.includes("L") ? "🥤 كبير L"
+                            const szLabel = sz.nameAr.includes("ساندوتش") ? "🥪 " + sz.nameAr
+                              : sz.nameAr.includes("مفتوح") ? "🧇 " + sz.nameAr
+                              : sz.nameAr.includes("قطعة") || sz.nameAr.includes("حبة") || sz.nameAr.includes("حبات") ? "🥞 " + sz.nameAr
+                              : sz.nameAr.includes("واحدة") ? "1️⃣ " + sz.nameAr
+                              : sz.nameAr.includes("قطعتين") || sz.nameAr.includes("اثنتين") ? "2️⃣ " + sz.nameAr
+                              : (sz.nameAr.startsWith("M") || sz.nameAr.includes("وسط")) ? "🥤 " + sz.nameAr
+                              : (sz.nameAr.startsWith("L") || sz.nameAr.includes("كبير")) ? "🧋 " + sz.nameAr
+                              : sz.nameAr.includes("فردي") || sz.nameAr.includes("صغير") ? "🟡 " + sz.nameAr
+                              : sz.nameAr.includes("عائلي") || sz.nameAr.includes("كبير") ? "🔴 " + sz.nameAr
                               : sz.nameAr;
                             return (
                               <button
