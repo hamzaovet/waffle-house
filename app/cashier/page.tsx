@@ -358,7 +358,15 @@ export default function CashierPage() {
 
         {/* ══════════════════════════ POS MODE ══════════════════════════ */}
         {activeMainTab === "pos" && (
-          <div style={{ display: "grid", gridTemplateColumns: "minmax(300px, 400px) 1fr", gap: "20px", alignItems: "start" }}>
+          <div style={{
+            display: "grid",
+            gridTemplateColumns: "minmax(280px, 350px) minmax(0, 1fr)",
+            gap: "16px",
+            alignItems: "start",
+            width: "100%",
+            maxWidth: "100%",
+            boxSizing: "border-box"
+          }}>
 
             {/* ── LEFT: Ticket Panel ── */}
             <div style={{ ...S.card, display: "flex", flexDirection: "column", gap: "14px", minHeight: "680px", justifyContent: "space-between" }}>
@@ -527,65 +535,55 @@ export default function CashierPage() {
             </div>
 
             {/* ── RIGHT: Menu Catalog ── */}
-            <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
-              {/* Category Filter with Scroll Arrows */}
-              <div style={{ display: "flex", alignItems: "center", gap: "6px", width: "100%", position: "relative" }}>
-                <button
-                  type="button"
-                  onClick={() => scrollCategories(dir === "rtl" ? 200 : -200)}
-                  title="السابق"
-                  style={{
-                    width: "32px", height: "36px", borderRadius: "10px", flexShrink: 0,
-                    background: "#200802", border: "1px solid rgba(217,119,6,0.5)",
-                    color: "#fcd34d", display: "flex", alignItems: "center", justifyContent: "center",
-                    cursor: "pointer", transition: "all 0.15s",
-                  }}
-                >
-                  <ChevronRight size={18} />
-                </button>
-
-                <div
-                  ref={categoryScrollRef}
-                  onWheel={(e) => {
-                    if (e.deltaY !== 0 && categoryScrollRef.current) {
-                      categoryScrollRef.current.scrollLeft += e.deltaY;
-                    }
-                  }}
-                  style={{
-                    display: "flex", gap: "6px", overflowX: "auto", padding: "4px 2px",
-                    WebkitOverflowScrolling: "touch", scrollbarWidth: "none",
-                    flex: 1, scrollBehavior: "smooth",
-                  }}
-                >
-                  {categories.map((cat) => (
-                    <button
-                      key={cat} type="button"
-                      onClick={() => { setActiveCategory(cat); playSound("click"); }}
-                      style={{
-                        padding: "8px 14px", borderRadius: "10px", fontSize: "12px", fontWeight: 900, whiteSpace: "nowrap", cursor: "pointer", flexShrink: 0,
-                        ...(activeCategory === cat
-                          ? { background: "linear-gradient(135deg, #8B0000, #B91C1C)", color: "#fff", border: "1px solid rgba(251,191,36,0.4)", boxShadow: "0 2px 8px rgba(139,0,0,0.4)" }
-                          : { background: "#200802", color: "#d6d3d1", border: "1px solid rgba(198,135,62,0.3)" }),
-                      }}
-                    >
-                      {cat}
-                    </button>
-                  ))}
-                </div>
-
-                <button
-                  type="button"
-                  onClick={() => scrollCategories(dir === "rtl" ? -200 : 200)}
-                  title="التالي"
-                  style={{
-                    width: "32px", height: "36px", borderRadius: "10px", flexShrink: 0,
-                    background: "#200802", border: "1px solid rgba(217,119,6,0.5)",
-                    color: "#fcd34d", display: "flex", alignItems: "center", justifyContent: "center",
-                    cursor: "pointer", transition: "all 0.15s",
-                  }}
-                >
-                  <ChevronLeft size={18} />
-                </button>
+            <div style={{
+              display: "flex",
+              flexDirection: "column",
+              gap: "10px",
+              minWidth: 0,
+              maxWidth: "100%",
+              width: "100%",
+              boxSizing: "border-box"
+            }}>
+              {/* Category Filter Pills (Wrapped & 100% visible on any screen) */}
+              <div style={{
+                display: "flex",
+                flexWrap: "wrap",
+                gap: "6px",
+                width: "100%",
+                boxSizing: "border-box",
+                background: "rgba(20, 4, 1, 0.7)",
+                padding: "8px 10px",
+                borderRadius: "14px",
+                border: "1px solid rgba(198,135,62,0.3)"
+              }}>
+                {categories.map((cat) => (
+                  <button
+                    key={cat} type="button"
+                    onClick={() => { setActiveCategory(cat); playSound("click"); }}
+                    style={{
+                      padding: "6px 12px",
+                      borderRadius: "10px",
+                      fontSize: "12px",
+                      fontWeight: 800,
+                      cursor: "pointer",
+                      transition: "all 0.15s",
+                      ...(activeCategory === cat
+                        ? {
+                            background: "linear-gradient(135deg, #8B0000, #B91C1C)",
+                            color: "#fff",
+                            border: "1px solid rgba(251,191,36,0.5)",
+                            boxShadow: "0 2px 8px rgba(139,0,0,0.4)"
+                          }
+                        : {
+                            background: "#200802",
+                            color: "#d6d3d1",
+                            border: "1px solid rgba(198,135,62,0.3)"
+                          }),
+                    }}
+                  >
+                    {cat}
+                  </button>
+                ))}
               </div>
 
               {/* Search */}

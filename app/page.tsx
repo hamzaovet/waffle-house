@@ -899,32 +899,6 @@ export default function HomePage() {
               <span style={{ fontSize: "16px", fontWeight: 900 }}>{lang === "en" ? "→" : "←"}</span>
             </a>
 
-            {/* Direct Counter POS Button */}
-            <Link
-              href="/cashier"
-              style={{
-                background: "linear-gradient(135deg, #8B0000, #991B1B)",
-                border: "1.5px solid #F59E0B",
-                color: "#FFFFFF",
-                fontWeight: 900,
-                padding: "12px 24px",
-                borderRadius: "12px",
-                textDecoration: "none",
-                fontSize: "15px",
-                display: "inline-flex",
-                alignItems: "center",
-                gap: "8px",
-                boxShadow: "0 4px 16px rgba(139, 0, 0, 0.4)",
-                fontFamily: "var(--font-cairo), system-ui, sans-serif",
-                transition: "transform 0.15s ease",
-              }}
-              onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.transform = "scale(1.03)"; }}
-              onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.transform = "scale(1)"; }}
-            >
-              <Store size={18} color="#F59E0B" />
-              <span>{lang === "en" ? "Counter POS (Takeaway)" : "كاشير وبيع مباشر تيك أواي (POS) 🖨️"}</span>
-            </Link>
-
             {/* Track Button */}
             <a
               href="#track"
