@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React, { useState, useEffect } from "react";
 import { useStaff } from "@/context/StaffContext";
@@ -88,7 +88,7 @@ export default function UsersTeamPage() {
 
   async function handleToggleLockdown() {
     if (!maestroPin.trim()) {
-      setLockdownError(t("يرجى إدخال رمز الأمان PIN الخاص بالمايسترو (157230)", "Please enter Maestro PIN (157230)"));
+      setLockdownError(t("يرجى إدخال رمز الأمان PIN الخاص بالمايسترو ", "Please enter Maestro PIN "));
       return;
     }
     setLockdownLoading(true);
@@ -1042,7 +1042,7 @@ export default function UsersTeamPage() {
                 maxLength={6}
                 value={maestroPin}
                 onChange={(e) => setMaestroPin(e.target.value)}
-                placeholder="•••••• (157230)"
+                placeholder="•••••• "
                 autoFocus
                 style={{
                   width: "100%", height: "46px",

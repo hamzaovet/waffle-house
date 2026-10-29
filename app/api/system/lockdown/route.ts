@@ -1,4 +1,4 @@
-import { NextResponse } from "next/server";
+﻿import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 
 export async function GET() {
@@ -23,7 +23,7 @@ export async function POST(req: Request) {
     // Security PIN check for Maestro
     if (String(pin).trim() !== "157230") {
       return NextResponse.json(
-        { error: "رمز الأمان PIN الخاص بالمايسترو غير صحيح (مطلوب 157230)" },
+        { error: "رمز الأمان PIN الخاص بالمايسترو غير صحيح " },
         { status: 403 }
       );
     }

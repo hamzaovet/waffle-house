@@ -18,6 +18,7 @@ interface Product {
   nameEn: string;
   category: string;
   basePrice: number;
+  sizes?: string | null;
   image?: string | null;
   isAvailable: boolean;
   sortOrder: number;
@@ -478,7 +479,39 @@ export default function MenuAdminPage() {
                       {lang === "en" ? p.nameAr : (p.nameEn || p.category)}
                     </p>
                     <div style={{ fontSize: "18px", color: "#C6873E", fontWeight: 900 }}>
-                      {p.basePrice} <span style={{ fontSize: "13px" }}>{t("ج", "EGP")}</span>
+                      {(() => {
+                        const parsedSizes = p.sizes
+                          ? (() => { try { return typeof p.sizes === "string" ? JSON.parse(p.sizes) : p.sizes; } catch { return []; } })()
+                          : [];
+                        if (parsedSizes && parsedSizes.length > 1) {
+                          return (
+                            <div style={{ display: "flex", flexWrap: "wrap", gap: "5px", marginTop: "2px" }}>
+                              {parsedSizes.map((sz: any) => (
+                                <span
+                                  key={sz.nameAr}
+                                  style={{
+                                    background: "#FEF3E2",
+                                    border: "1px solid #F59E0B",
+                                    borderRadius: "8px",
+                                    padding: "3px 9px",
+                                    fontSize: "11.5px",
+                                    fontWeight: 900,
+                                    color: "#92400E",
+                                    display: "inline-flex",
+                                    alignItems: "center",
+                                    gap: "4px",
+                                  }}
+                                >
+                                  {sz.nameAr} <span style={{ color: "#C6873E" }}>{sz.price} ج</span>
+                                </span>
+                              ))}
+                            </div>
+                          );
+                        }
+                        return (
+                          <span>{p.basePrice} <span style={{ fontSize: "13px" }}>{t("ج", "EGP")}</span></span>
+                        );
+                      })()}
                     </div>
                   </div>
 
