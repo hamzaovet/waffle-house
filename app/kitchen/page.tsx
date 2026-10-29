@@ -17,6 +17,7 @@ interface Order {
   items: string;
   notes?: string;
   status: string;
+  orderType?: string;
   createdAt: string;
   updatedAt: string;
 }
@@ -163,6 +164,22 @@ export default function KitchenPage() {
                     <span className={`text-xs font-bold ${isUrgent ? "text-red-600" : "text-[#7E5E49]"}`}>{elapsed} {t("د", "m")}</span>
                   </div>
                 </div>
+                {/* Order Type Badge */}
+                {order.orderType === "takeaway" && (
+                  <span className="inline-flex items-center gap-1 text-[11px] font-black px-2 py-0.5 rounded-lg bg-amber-100 border border-amber-400 text-amber-800">
+                    🥡 تيك أواي
+                  </span>
+                )}
+                {order.orderType === "delivery" && (
+                  <span className="inline-flex items-center gap-1 text-[11px] font-black px-2 py-0.5 rounded-lg bg-red-100 border border-red-400 text-red-800">
+                    🛵 دليفري
+                  </span>
+                )}
+                {order.orderType === "dinein" && (
+                  <span className="inline-flex items-center gap-1 text-[11px] font-black px-2 py-0.5 rounded-lg bg-purple-100 border border-purple-400 text-purple-800">
+                    🍽️ صالة
+                  </span>
+                )}
 
                 <div>
                   <p className="font-bold text-[#2B170E]">{order.customerName}</p>

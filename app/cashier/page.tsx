@@ -216,7 +216,7 @@ export default function CashierPage() {
           address: finalAddress,
           zone: finalZone,
           orderType: ticketOrderType,
-          status: "delivered", // Counter takeaway is settled on the spot
+          status: "new", // Kitchen needs to prepare all orders regardless of type
           paymentMethod: ticketPaymentMethod,
           notes: ticketNotes,
           items,
