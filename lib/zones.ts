@@ -9,31 +9,28 @@ export interface ZoneItem {
 }
 
 export const CAIRO_DELIVERY_ZONES: ZoneItem[] = [
-  { code: "CAI-01", nameAr: "التجمع الخامس - القاهرة الجديدة", nameEn: "New Cairo - 5th Settlement", fee: 45.0, timeMinutes: 40 },
-  { code: "CAI-02", nameAr: "التجمع الأول والرحاب", nameEn: "1st Settlement & El Rehab", fee: 50.0, timeMinutes: 45 },
-  { code: "CAI-03", nameAr: "مدينتي والشروق وبدر", nameEn: "Madinaty & El Shorouk", fee: 65.0, timeMinutes: 55 },
-  { code: "CAI-04", nameAr: "مدينة نصر - رابعة وعباس والحي السابع", nameEn: "Nasr City", fee: 35.0, timeMinutes: 35 },
-  { code: "CAI-05", nameAr: "مصر الجديدة - الكوربة والميرغني وروكسي", nameEn: "Heliopolis", fee: 35.0, timeMinutes: 35 },
-  { code: "CAI-06", nameAr: "مساكن شيراتون والنزهة الجديدة", nameEn: "Sheraton & New Nozha", fee: 40.0, timeMinutes: 40 },
-  { code: "CAI-07", nameAr: "المعادي ودجلة وثكنات المعادي", nameEn: "Maadi & Degla", fee: 40.0, timeMinutes: 40 },
-  { code: "CAI-08", nameAr: "المقطم والهضبة الوسطى", nameEn: "Mokattam", fee: 40.0, timeMinutes: 40 },
-  { code: "CAI-09", nameAr: "الزمالك", nameEn: "Zamalek", fee: 40.0, timeMinutes: 40 },
-  { code: "CAI-10", nameAr: "المهندسين والدقي والعجوزة", nameEn: "Mohandessin, Dokki & Agouza", fee: 35.0, timeMinutes: 35 },
-  { code: "CAI-11", nameAr: "وسط البلد والتحرير وجاردن سيتي", nameEn: "Downtown Cairo & Garden City", fee: 35.0, timeMinutes: 35 },
-  { code: "CAI-12", nameAr: "شبرا ومصر القديمة والمنيل", nameEn: "Shoubra, Manyal & Old Cairo", fee: 40.0, timeMinutes: 45 },
-  { code: "CAI-13", nameAr: "الهرم وفيصل والجيزة", nameEn: "Haram & Faisal", fee: 45.0, timeMinutes: 45 },
-  { code: "CAI-14", nameAr: "حدائق الأهرام", nameEn: "Hadayek Al Ahram", fee: 55.0, timeMinutes: 50 },
-  { code: "CAI-15", nameAr: "الشيخ زايد", nameEn: "Sheikh Zayed", fee: 65.0, timeMinutes: 55 },
-  { code: "CAI-16", nameAr: "القاهرة", nameEn: "6th of October", fee: 70.0, timeMinutes: 60 },
-  { code: "CAI-17", nameAr: "العاصمة الإدارية الجديدة", nameEn: "New Administrative Capital", fee: 75.0, timeMinutes: 60 },
-  { code: "CAI-18", nameAr: "المستقبل سيتي وسراي", nameEn: "Mostakbal City & Sarai", fee: 65.0, timeMinutes: 50 },
-  { code: "CAI-19", nameAr: "عين شمس وجسر السويس والمطرية", nameEn: "Ain Shams & Gesr El Suez", fee: 40.0, timeMinutes: 45 },
-  { code: "CAI-20", nameAr: "حلوان والمعصرة", nameEn: "Helwan & Maasara", fee: 55.0, timeMinutes: 50 },
+  { code: "CAI-01", nameAr: "حدائق القبة (المنطقة المحيطة بالفرع)", nameEn: "Hadaeq Al Qubbah (Branch Area)", fee: 15.0, timeMinutes: 20 },
+  { code: "CAI-02", nameAr: "سراي القبة وحمامات القبة والزيتون", nameEn: "Saray Al Qubbah & El Zeitoun", fee: 20.0, timeMinutes: 25 },
+  { code: "CAI-03", nameAr: "العباسية والوايلي والدمرداش", nameEn: "Abbaseya, Wayli & Demerdash", fee: 20.0, timeMinutes: 25 },
+  { code: "CAI-04", nameAr: "مصر الجديدة وروكسي والكوربة", nameEn: "Heliopolis, Roxy & Korba", fee: 25.0, timeMinutes: 30 },
+  { code: "CAI-05", nameAr: "شبرا والساحل وروض الفرج", nameEn: "Shoubra & El Sahel", fee: 25.0, timeMinutes: 30 },
+  { code: "CAI-06", nameAr: "حلمية الزيتون وعين شمس الغربية", nameEn: "Helmeyat El Zeitoun & Ain Shams", fee: 25.0, timeMinutes: 30 },
+  { code: "CAI-07", nameAr: "المطرية والأميرية والسواح", nameEn: "Matareya & Amiriya", fee: 20.0, timeMinutes: 25 },
+  { code: "CAI-08", nameAr: "مدينة نصر - رابعة وعباس ومكرم", nameEn: "Nasr City (Rabaa & Abbas)", fee: 35.0, timeMinutes: 35 },
+  { code: "CAI-09", nameAr: "مساكن شيراتون والنزهة الجديدة", nameEn: "Sheraton & New Nozha", fee: 35.0, timeMinutes: 35 },
+  { code: "CAI-10", nameAr: "وسط البلد والتحرير وباب اللوق", nameEn: "Downtown Cairo & Tahrir", fee: 30.0, timeMinutes: 35 },
+  { code: "CAI-11", nameAr: "الزمالك وجاردن سيتي", nameEn: "Zamalek & Garden City", fee: 35.0, timeMinutes: 40 },
+  { code: "CAI-12", nameAr: "المهندسين والدقي والعجوزة", nameEn: "Mohandessin, Dokki & Agouza", fee: 35.0, timeMinutes: 40 },
+  { code: "CAI-13", nameAr: "المعادي ودجلة", nameEn: "Maadi & Degla", fee: 45.0, timeMinutes: 45 },
+  { code: "CAI-14", nameAr: "المقطم والهضبة الوسطى", nameEn: "Mokattam", fee: 40.0, timeMinutes: 40 },
+  { code: "CAI-15", nameAr: "التجمع الخامس والقاهرة الجديدة", nameEn: "New Cairo - 5th Settlement", fee: 45.0, timeMinutes: 45 },
+  { code: "CAI-16", nameAr: "الرحاب والتجمع الأول", nameEn: "El Rehab & 1st Settlement", fee: 50.0, timeMinutes: 50 },
+  { code: "CAI-17", nameAr: "مدينتي والشروق", nameEn: "Madinaty & El Shorouk", fee: 65.0, timeMinutes: 55 },
 ];
 
 export const ALL_DELIVERY_ZONES: ZoneItem[] = CAIRO_DELIVERY_ZONES;
 
-export const DEFAULT_ZONE: ZoneItem = ALL_DELIVERY_ZONES[0]; // التجمع الخامس 45 ج.م
+export const DEFAULT_ZONE: ZoneItem = ALL_DELIVERY_ZONES[0]; // حدائق القبة 15 ج.م
 
 export function findZone(nameOrCode?: string): ZoneItem {
   if (!nameOrCode) return DEFAULT_ZONE;
@@ -48,11 +45,10 @@ export function findZone(nameOrCode?: string): ZoneItem {
   );
   return (
     match || {
-      code: "CUSTOM",
       nameAr: nameOrCode,
       nameEn: nameOrCode,
-      fee: 40,
-      timeMinutes: 45,
+      fee: 20.0,
+      timeMinutes: 30,
     }
   );
 }

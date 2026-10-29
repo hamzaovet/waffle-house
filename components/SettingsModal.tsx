@@ -28,8 +28,8 @@ export default function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
 
   const [settings, setSettings] = useState({
     restaurantName: "Waffle House",
-    phone: "01018671000",
-    address: "القاهرة - مصر",
+    phone: "01155175799",
+    address: "حدائق القبة - شارع مصر والسودان - بجوار حلواني الشيبي - القاهرة",
     soundsEnabled: true,
     status: "open", // open, busy, closed, disabled
   });
@@ -48,8 +48,8 @@ export default function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
         const data = await res.json();
         setSettings({
           restaurantName: data.restaurantName || "Waffle House",
-          phone: data.phone || "01018671000",
-          address: data.address || "القاهرة - مصر",
+          phone: data.phone || "01155175799",
+          address: data.address || "حدائق القبة - شارع مصر والسودان - بجوار حلواني الشيبي - القاهرة",
           soundsEnabled: data.soundsEnabled ?? true,
           status: data.specialOffers || "open",
         });
@@ -277,7 +277,7 @@ export default function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
 
                 <div>
                   <span style={{ display: "block", fontSize: "11.5px", fontWeight: 700, color: "#7E5E49", marginBottom: "5px" }}>
-                    {t("عنوان الفرع (6 أكتوبر)", "Branch Address (6th of October)")}
+                    {t("عنوان الفرع (حدائق القبة)", "Branch Address (Hadaeq Al Qubbah)")}
                   </span>
                   <input
                     type="text"

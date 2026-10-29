@@ -26,6 +26,7 @@ model Product {
   nameEn      String
   category    String
   basePrice   Float
+  sizes       String?  // JSON: [{nameAr, nameEn, price}]
   image       String?
   description String?
   isAvailable Boolean  @default(true)
@@ -39,11 +40,12 @@ model Order {
   customerName  String
   phone         String
   address       String?
-  zone          String   @default("الحي الثاني")
+  zone          String   @default("حدائق القبة")
+  orderType     String   @default("delivery") // delivery, takeaway, dinein
   status        String   @default("new") // new, preparing, ready, with_captain, delivered, cancelled
-  items         String   // JSON: [{productId, nameAr, nameEn, qty, unitPrice, extras:[]}]
+  items         String   // JSON: [{productId, nameAr, nameEn, qty, unitPrice, selectedSize, extras:[]}]
   subtotal      Float
-  deliveryFee   Float    @default(15)
+  deliveryFee   Float    @default(0)
   total         Float
   deposit       Float    @default(0)
   remaining     Float
@@ -118,8 +120,8 @@ model ChatMessage {
 model SystemSettings {
   id            String   @id @default("default")
   restaurantName String  @default("Waffle House")
-  phone         String   @default("01018671000")
-  address       String   @default("القاهرة - مصر")
+  phone         String   @default("01155175799")
+  address       String   @default("حدائق القبة - شارع مصر والسودان - بجوار حلواني الشيبي - القاهرة")
   deliveryZones String   @default("[]") // JSON: [{name, fee}]
   soundsEnabled Boolean  @default(true)
   offersEnabled Boolean  @default(true)

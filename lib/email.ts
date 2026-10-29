@@ -54,8 +54,8 @@ export async function sendOtpEmail(to: string, name: string, code: string): Prom
           <p class="info">⚠️ الرمز صالح لمدة 10 دقائق فقط. لا تشارك هذا الرمز مع أي شخص.</p>
 
           <div class="footer">
-            تم إرسال هذا البريد تلقائياً من منصة Waffle House — مدينة 6 أكتوبر<br/>
-            للطلبات والاستفسارات: 01018671000
+            تم إرسال هذا البريد تلقائياً من منصة Waffle House — مدينة حدائق القبة<br/>
+            للطلبات والاستفسارات: 01155175799
           </div>
         </div>
       </body>

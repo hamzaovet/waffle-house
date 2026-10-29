@@ -4,7 +4,7 @@ import { prisma } from "@/lib/prisma";
 function generateOrderNumber() {
   const now = new Date();
   const pad = (n: number) => String(n).padStart(2, "0");
-  return `WK-${now.getFullYear()}${pad(now.getMonth() + 1)}${pad(now.getDate())}-${String(Date.now()).slice(-4)}`;
+  return `WH-${now.getFullYear()}${pad(now.getMonth() + 1)}${pad(now.getDate())}-${String(Date.now()).slice(-4)}`;
 }
 
 export async function GET(req: Request) {
@@ -38,13 +38,17 @@ export async function POST(req: Request) {
   try {
     const body = await req.json();
     const orderNumber = generateOrderNumber();
-    const total = (body.subtotal || 0) + (body.deliveryFee || 15);
+    const orderType = body.orderType || "delivery";
+    const deliveryFee = (orderType === "takeaway" || orderType === "dinein") ? 0 : (body.deliveryFee ?? 15);
+    const total = (body.subtotal || 0) + deliveryFee;
     const remaining = total - (body.deposit || 0);
     const timeline = JSON.stringify([{ stage: "new", at: new Date().toISOString(), by: "customer" }]);
 
     const order = await prisma.order.create({
       data: {
         ...body,
+        orderType,
+        deliveryFee,
         orderNumber,
         total,
         remaining,

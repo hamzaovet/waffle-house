@@ -535,7 +535,7 @@ export default function CustomersPage() {
                           {cust.zone || "الحي الثاني"}
                         </div>
                         <div style={{ fontSize: "11.5px", color: "#8a7565", maxWidth: "200px", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
-                          {cust.address || "مدينة 6 أكتوبر"}
+                          {cust.address || "مدينة حدائق القبة"}
                         </div>
                       </td>
 
@@ -650,7 +650,7 @@ export default function CustomersPage() {
                     سجل طلبات العميل: {selectedCustomer.name}
                   </h3>
                   <p style={{ margin: "2px 0 0 0", fontSize: "12px", color: "#C6873E", fontWeight: 700 }}>
-                    موبايل: {selectedCustomer.phone} • {selectedCustomer.zone || "6 أكتوبر"}
+                    موبايل: {selectedCustomer.phone} • {selectedCustomer.zone || "حدائق القبة"}
                   </p>
                 </div>
                 <button

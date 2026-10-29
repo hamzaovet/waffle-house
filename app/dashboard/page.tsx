@@ -594,7 +594,7 @@ export default function DashboardOrdersPage() {
       `🏷️ *أوردر رقم:* #${order.orderNumber}\n` +
       `👤 *اسم العميل:* ${order.customerName}\n` +
       `📞 *هاتف العميل:* ${order.phone}\n` +
-      `📍 *العنوان:* ${order.address || "غير محدد"} (${order.zone || "الحي الثاني"})\n` +
+      `📍 *العنوان:* ${order.address || "غير محدد"} (${order.zone || "حدائق القبة"})\n` +
       `🗺️ *لوكيشن الخريطة المباشر:*\n${mapsUrl}\n\n` +
       `🍰 *الأصناف المطلوبة:*\n${itemsList || "أصناف متنوعة"}\n\n` +
       `💰 *المطلوب تحصيله كاش:* ${order.total} ج.م ${
@@ -1391,7 +1391,7 @@ export default function DashboardOrdersPage() {
                         >
                           <MapPin size={13} color="#C6873E" />
                           <span>
-                            {order.address} ({order.zone || "6 أكتوبر"})
+                            {order.address} ({order.zone || "حدائق القبة"})
                           </span>
                         </div>
                       )}
@@ -1788,7 +1788,7 @@ export default function DashboardOrdersPage() {
                       {t("إسناد الأوردر لطيار الدليفري 🛵", "Assign Delivery Captain")}
                     </h3>
                     <p style={{ margin: "2px 0 0 0", fontSize: "12px", color: "#C6873E", fontWeight: 700 }}>
-                      أوردر #{captainModalOrder.orderNumber} • المطلوب تحصيله: {captainModalOrder.total} ج.م ({captainModalOrder.zone || "الحي الثاني"})
+                      أوردر #{captainModalOrder.orderNumber} • المطلوب تحصيله: {captainModalOrder.total} ج.م ({captainModalOrder.zone || "حدائق القبة"})
                     </p>
                   </div>
                 </div>
@@ -2550,7 +2550,7 @@ export default function DashboardOrdersPage() {
                                       <div>
                                         <strong style={{ color: "#7E22CE" }}>#{ord.orderNumber}</strong> •{" "}
                                         <span style={{ fontWeight: 800, color: "#2B170E" }}>{ord.customerName}</span> •{" "}
-                                        <span style={{ color: "#7E5E49" }}>{ord.address || ord.zone || "الحي الثاني"}</span>
+                                        <span style={{ color: "#7E5E49" }}>{ord.address || ord.zone || "حدائق القبة"}</span>
                                       </div>
                                       <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
                                         <span style={{ fontWeight: 900, color: "#C6873E" }}>

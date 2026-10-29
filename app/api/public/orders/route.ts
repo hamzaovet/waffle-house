@@ -11,11 +11,12 @@ export async function POST(req: Request) {
 
     const pad = (n: number) => String(n).padStart(2, "0");
     const now = new Date();
-    const orderNumber = `CH-${now.getFullYear()}${pad(now.getMonth() + 1)}${pad(now.getDate())}-${String(Date.now()).slice(-4)}`;
+    const orderNumber = `WH-${now.getFullYear()}${pad(now.getMonth() + 1)}${pad(now.getDate())}-${String(Date.now()).slice(-4)}`;
 
+    const orderType = body.orderType || "delivery";
     const items = typeof body.items === "string" ? body.items : JSON.stringify(body.items);
     const subtotal = body.subtotal || 0;
-    const deliveryFee = body.deliveryFee || 15;
+    const deliveryFee = (orderType === "takeaway" || orderType === "dinein") ? 0 : (body.deliveryFee ?? 15);
     const total = subtotal + deliveryFee;
     const deposit = body.deposit || 0;
     const remaining = total - deposit;
@@ -27,7 +28,8 @@ export async function POST(req: Request) {
         customerName: body.customerName,
         phone: body.phone,
         address: body.address || "",
-        zone: body.zone || "الحي الثاني",
+        zone: orderType === "takeaway" ? "استلام من فرع حدائق القبة" : (orderType === "dinein" ? "صالة" : (body.zone || "حدائق القبة")),
+        orderType,
         items,
         subtotal,
         deliveryFee,
@@ -48,7 +50,7 @@ export async function POST(req: Request) {
       const cleanPhone = String(body.phone).trim();
       const cleanName = String(body.customerName).trim();
       const cleanAddr = String(body.address || "").trim();
-      const cleanZone = String(body.zone || "الحي الثاني").trim();
+      const cleanZone = String(body.orderType === "takeaway" ? "استلام من فرع حدائق القبة" : (body.zone || "حدائق القبة")).trim();
       const cleanEmail = body.customerEmail ? String(body.customerEmail).trim().toLowerCase() : null;
 
       await prisma.$executeRawUnsafe(`

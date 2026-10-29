@@ -3079,6 +3079,7 @@ export namespace Prisma {
     nameEn: string | null
     category: string | null
     basePrice: number | null
+    sizes: string | null
     image: string | null
     description: string | null
     isAvailable: boolean | null
@@ -3092,6 +3093,7 @@ export namespace Prisma {
     nameEn: string | null
     category: string | null
     basePrice: number | null
+    sizes: string | null
     image: string | null
     description: string | null
     isAvailable: boolean | null
@@ -3105,6 +3107,7 @@ export namespace Prisma {
     nameEn: number
     category: number
     basePrice: number
+    sizes: number
     image: number
     description: number
     isAvailable: number
@@ -3130,6 +3133,7 @@ export namespace Prisma {
     nameEn?: true
     category?: true
     basePrice?: true
+    sizes?: true
     image?: true
     description?: true
     isAvailable?: true
@@ -3143,6 +3147,7 @@ export namespace Prisma {
     nameEn?: true
     category?: true
     basePrice?: true
+    sizes?: true
     image?: true
     description?: true
     isAvailable?: true
@@ -3156,6 +3161,7 @@ export namespace Prisma {
     nameEn?: true
     category?: true
     basePrice?: true
+    sizes?: true
     image?: true
     description?: true
     isAvailable?: true
@@ -3256,6 +3262,7 @@ export namespace Prisma {
     nameEn: string
     category: string
     basePrice: number
+    sizes: string | null
     image: string | null
     description: string | null
     isAvailable: boolean
@@ -3288,6 +3295,7 @@ export namespace Prisma {
     nameEn?: boolean
     category?: boolean
     basePrice?: boolean
+    sizes?: boolean
     image?: boolean
     description?: boolean
     isAvailable?: boolean
@@ -3301,6 +3309,7 @@ export namespace Prisma {
     nameEn?: boolean
     category?: boolean
     basePrice?: boolean
+    sizes?: boolean
     image?: boolean
     description?: boolean
     isAvailable?: boolean
@@ -3314,6 +3323,7 @@ export namespace Prisma {
     nameEn?: boolean
     category?: boolean
     basePrice?: boolean
+    sizes?: boolean
     image?: boolean
     description?: boolean
     isAvailable?: boolean
@@ -3327,6 +3337,7 @@ export namespace Prisma {
     nameEn?: boolean
     category?: boolean
     basePrice?: boolean
+    sizes?: boolean
     image?: boolean
     description?: boolean
     isAvailable?: boolean
@@ -3334,7 +3345,7 @@ export namespace Prisma {
     createdAt?: boolean
   }
 
-  export type ProductOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "nameAr" | "nameEn" | "category" | "basePrice" | "image" | "description" | "isAvailable" | "sortOrder" | "createdAt", ExtArgs["result"]["product"]>
+  export type ProductOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "nameAr" | "nameEn" | "category" | "basePrice" | "sizes" | "image" | "description" | "isAvailable" | "sortOrder" | "createdAt", ExtArgs["result"]["product"]>
 
   export type $ProductPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Product"
@@ -3345,6 +3356,7 @@ export namespace Prisma {
       nameEn: string
       category: string
       basePrice: number
+      sizes: string | null
       image: string | null
       description: string | null
       isAvailable: boolean
@@ -3778,6 +3790,7 @@ export namespace Prisma {
     readonly nameEn: FieldRef<"Product", 'String'>
     readonly category: FieldRef<"Product", 'String'>
     readonly basePrice: FieldRef<"Product", 'Float'>
+    readonly sizes: FieldRef<"Product", 'String'>
     readonly image: FieldRef<"Product", 'String'>
     readonly description: FieldRef<"Product", 'String'>
     readonly isAvailable: FieldRef<"Product", 'Boolean'>
@@ -4189,6 +4202,7 @@ export namespace Prisma {
     phone: string | null
     address: string | null
     zone: string | null
+    orderType: string | null
     status: string | null
     items: string | null
     subtotal: number | null
@@ -4216,6 +4230,7 @@ export namespace Prisma {
     phone: string | null
     address: string | null
     zone: string | null
+    orderType: string | null
     status: string | null
     items: string | null
     subtotal: number | null
@@ -4243,6 +4258,7 @@ export namespace Prisma {
     phone: number
     address: number
     zone: number
+    orderType: number
     status: number
     items: number
     subtotal: number
@@ -4288,6 +4304,7 @@ export namespace Prisma {
     phone?: true
     address?: true
     zone?: true
+    orderType?: true
     status?: true
     items?: true
     subtotal?: true
@@ -4315,6 +4332,7 @@ export namespace Prisma {
     phone?: true
     address?: true
     zone?: true
+    orderType?: true
     status?: true
     items?: true
     subtotal?: true
@@ -4342,6 +4360,7 @@ export namespace Prisma {
     phone?: true
     address?: true
     zone?: true
+    orderType?: true
     status?: true
     items?: true
     subtotal?: true
@@ -4456,6 +4475,7 @@ export namespace Prisma {
     phone: string
     address: string | null
     zone: string
+    orderType: string
     status: string
     items: string
     subtotal: number
@@ -4502,6 +4522,7 @@ export namespace Prisma {
     phone?: boolean
     address?: boolean
     zone?: boolean
+    orderType?: boolean
     status?: boolean
     items?: boolean
     subtotal?: boolean
@@ -4529,6 +4550,7 @@ export namespace Prisma {
     phone?: boolean
     address?: boolean
     zone?: boolean
+    orderType?: boolean
     status?: boolean
     items?: boolean
     subtotal?: boolean
@@ -4556,6 +4578,7 @@ export namespace Prisma {
     phone?: boolean
     address?: boolean
     zone?: boolean
+    orderType?: boolean
     status?: boolean
     items?: boolean
     subtotal?: boolean
@@ -4583,6 +4606,7 @@ export namespace Prisma {
     phone?: boolean
     address?: boolean
     zone?: boolean
+    orderType?: boolean
     status?: boolean
     items?: boolean
     subtotal?: boolean
@@ -4603,7 +4627,7 @@ export namespace Prisma {
     updatedAt?: boolean
   }
 
-  export type OrderOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "orderNumber" | "customerName" | "phone" | "address" | "zone" | "status" | "items" | "subtotal" | "deliveryFee" | "total" | "deposit" | "remaining" | "paymentMethod" | "notes" | "assignedChef" | "captainName" | "captainPhone" | "customerEmail" | "customerId" | "timeline" | "saro5RefId" | "createdAt" | "updatedAt", ExtArgs["result"]["order"]>
+  export type OrderOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "orderNumber" | "customerName" | "phone" | "address" | "zone" | "orderType" | "status" | "items" | "subtotal" | "deliveryFee" | "total" | "deposit" | "remaining" | "paymentMethod" | "notes" | "assignedChef" | "captainName" | "captainPhone" | "customerEmail" | "customerId" | "timeline" | "saro5RefId" | "createdAt" | "updatedAt", ExtArgs["result"]["order"]>
 
   export type $OrderPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Order"
@@ -4615,6 +4639,7 @@ export namespace Prisma {
       phone: string
       address: string | null
       zone: string
+      orderType: string
       status: string
       items: string
       subtotal: number
@@ -5062,6 +5087,7 @@ export namespace Prisma {
     readonly phone: FieldRef<"Order", 'String'>
     readonly address: FieldRef<"Order", 'String'>
     readonly zone: FieldRef<"Order", 'String'>
+    readonly orderType: FieldRef<"Order", 'String'>
     readonly status: FieldRef<"Order", 'String'>
     readonly items: FieldRef<"Order", 'String'>
     readonly subtotal: FieldRef<"Order", 'Float'>
@@ -16251,6 +16277,7 @@ export namespace Prisma {
     nameEn: 'nameEn',
     category: 'category',
     basePrice: 'basePrice',
+    sizes: 'sizes',
     image: 'image',
     description: 'description',
     isAvailable: 'isAvailable',
@@ -16268,6 +16295,7 @@ export namespace Prisma {
     phone: 'phone',
     address: 'address',
     zone: 'zone',
+    orderType: 'orderType',
     status: 'status',
     items: 'items',
     subtotal: 'subtotal',
@@ -16622,6 +16650,7 @@ export namespace Prisma {
     nameEn?: StringFilter<"Product"> | string
     category?: StringFilter<"Product"> | string
     basePrice?: FloatFilter<"Product"> | number
+    sizes?: StringNullableFilter<"Product"> | string | null
     image?: StringNullableFilter<"Product"> | string | null
     description?: StringNullableFilter<"Product"> | string | null
     isAvailable?: BoolFilter<"Product"> | boolean
@@ -16635,6 +16664,7 @@ export namespace Prisma {
     nameEn?: SortOrder
     category?: SortOrder
     basePrice?: SortOrder
+    sizes?: SortOrderInput | SortOrder
     image?: SortOrderInput | SortOrder
     description?: SortOrderInput | SortOrder
     isAvailable?: SortOrder
@@ -16651,6 +16681,7 @@ export namespace Prisma {
     nameEn?: StringFilter<"Product"> | string
     category?: StringFilter<"Product"> | string
     basePrice?: FloatFilter<"Product"> | number
+    sizes?: StringNullableFilter<"Product"> | string | null
     image?: StringNullableFilter<"Product"> | string | null
     description?: StringNullableFilter<"Product"> | string | null
     isAvailable?: BoolFilter<"Product"> | boolean
@@ -16664,6 +16695,7 @@ export namespace Prisma {
     nameEn?: SortOrder
     category?: SortOrder
     basePrice?: SortOrder
+    sizes?: SortOrderInput | SortOrder
     image?: SortOrderInput | SortOrder
     description?: SortOrderInput | SortOrder
     isAvailable?: SortOrder
@@ -16685,6 +16717,7 @@ export namespace Prisma {
     nameEn?: StringWithAggregatesFilter<"Product"> | string
     category?: StringWithAggregatesFilter<"Product"> | string
     basePrice?: FloatWithAggregatesFilter<"Product"> | number
+    sizes?: StringNullableWithAggregatesFilter<"Product"> | string | null
     image?: StringNullableWithAggregatesFilter<"Product"> | string | null
     description?: StringNullableWithAggregatesFilter<"Product"> | string | null
     isAvailable?: BoolWithAggregatesFilter<"Product"> | boolean
@@ -16702,6 +16735,7 @@ export namespace Prisma {
     phone?: StringFilter<"Order"> | string
     address?: StringNullableFilter<"Order"> | string | null
     zone?: StringFilter<"Order"> | string
+    orderType?: StringFilter<"Order"> | string
     status?: StringFilter<"Order"> | string
     items?: StringFilter<"Order"> | string
     subtotal?: FloatFilter<"Order"> | number
@@ -16729,6 +16763,7 @@ export namespace Prisma {
     phone?: SortOrder
     address?: SortOrderInput | SortOrder
     zone?: SortOrder
+    orderType?: SortOrder
     status?: SortOrder
     items?: SortOrder
     subtotal?: SortOrder
@@ -16759,6 +16794,7 @@ export namespace Prisma {
     phone?: StringFilter<"Order"> | string
     address?: StringNullableFilter<"Order"> | string | null
     zone?: StringFilter<"Order"> | string
+    orderType?: StringFilter<"Order"> | string
     status?: StringFilter<"Order"> | string
     items?: StringFilter<"Order"> | string
     subtotal?: FloatFilter<"Order"> | number
@@ -16786,6 +16822,7 @@ export namespace Prisma {
     phone?: SortOrder
     address?: SortOrderInput | SortOrder
     zone?: SortOrder
+    orderType?: SortOrder
     status?: SortOrder
     items?: SortOrder
     subtotal?: SortOrder
@@ -16821,6 +16858,7 @@ export namespace Prisma {
     phone?: StringWithAggregatesFilter<"Order"> | string
     address?: StringNullableWithAggregatesFilter<"Order"> | string | null
     zone?: StringWithAggregatesFilter<"Order"> | string
+    orderType?: StringWithAggregatesFilter<"Order"> | string
     status?: StringWithAggregatesFilter<"Order"> | string
     items?: StringWithAggregatesFilter<"Order"> | string
     subtotal?: FloatWithAggregatesFilter<"Order"> | number
@@ -17670,6 +17708,7 @@ export namespace Prisma {
     nameEn: string
     category: string
     basePrice: number
+    sizes?: string | null
     image?: string | null
     description?: string | null
     isAvailable?: boolean
@@ -17683,6 +17722,7 @@ export namespace Prisma {
     nameEn: string
     category: string
     basePrice: number
+    sizes?: string | null
     image?: string | null
     description?: string | null
     isAvailable?: boolean
@@ -17696,6 +17736,7 @@ export namespace Prisma {
     nameEn?: StringFieldUpdateOperationsInput | string
     category?: StringFieldUpdateOperationsInput | string
     basePrice?: FloatFieldUpdateOperationsInput | number
+    sizes?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
     isAvailable?: BoolFieldUpdateOperationsInput | boolean
@@ -17709,6 +17750,7 @@ export namespace Prisma {
     nameEn?: StringFieldUpdateOperationsInput | string
     category?: StringFieldUpdateOperationsInput | string
     basePrice?: FloatFieldUpdateOperationsInput | number
+    sizes?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
     isAvailable?: BoolFieldUpdateOperationsInput | boolean
@@ -17722,6 +17764,7 @@ export namespace Prisma {
     nameEn: string
     category: string
     basePrice: number
+    sizes?: string | null
     image?: string | null
     description?: string | null
     isAvailable?: boolean
@@ -17735,6 +17778,7 @@ export namespace Prisma {
     nameEn?: StringFieldUpdateOperationsInput | string
     category?: StringFieldUpdateOperationsInput | string
     basePrice?: FloatFieldUpdateOperationsInput | number
+    sizes?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
     isAvailable?: BoolFieldUpdateOperationsInput | boolean
@@ -17748,6 +17792,7 @@ export namespace Prisma {
     nameEn?: StringFieldUpdateOperationsInput | string
     category?: StringFieldUpdateOperationsInput | string
     basePrice?: FloatFieldUpdateOperationsInput | number
+    sizes?: NullableStringFieldUpdateOperationsInput | string | null
     image?: NullableStringFieldUpdateOperationsInput | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
     isAvailable?: BoolFieldUpdateOperationsInput | boolean
@@ -17762,6 +17807,7 @@ export namespace Prisma {
     phone: string
     address?: string | null
     zone?: string
+    orderType?: string
     status?: string
     items: string
     subtotal: number
@@ -17789,6 +17835,7 @@ export namespace Prisma {
     phone: string
     address?: string | null
     zone?: string
+    orderType?: string
     status?: string
     items: string
     subtotal: number
@@ -17816,6 +17863,7 @@ export namespace Prisma {
     phone?: StringFieldUpdateOperationsInput | string
     address?: NullableStringFieldUpdateOperationsInput | string | null
     zone?: StringFieldUpdateOperationsInput | string
+    orderType?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
     items?: StringFieldUpdateOperationsInput | string
     subtotal?: FloatFieldUpdateOperationsInput | number
@@ -17843,6 +17891,7 @@ export namespace Prisma {
     phone?: StringFieldUpdateOperationsInput | string
     address?: NullableStringFieldUpdateOperationsInput | string | null
     zone?: StringFieldUpdateOperationsInput | string
+    orderType?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
     items?: StringFieldUpdateOperationsInput | string
     subtotal?: FloatFieldUpdateOperationsInput | number
@@ -17870,6 +17919,7 @@ export namespace Prisma {
     phone: string
     address?: string | null
     zone?: string
+    orderType?: string
     status?: string
     items: string
     subtotal: number
@@ -17897,6 +17947,7 @@ export namespace Prisma {
     phone?: StringFieldUpdateOperationsInput | string
     address?: NullableStringFieldUpdateOperationsInput | string | null
     zone?: StringFieldUpdateOperationsInput | string
+    orderType?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
     items?: StringFieldUpdateOperationsInput | string
     subtotal?: FloatFieldUpdateOperationsInput | number
@@ -17924,6 +17975,7 @@ export namespace Prisma {
     phone?: StringFieldUpdateOperationsInput | string
     address?: NullableStringFieldUpdateOperationsInput | string | null
     zone?: StringFieldUpdateOperationsInput | string
+    orderType?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
     items?: StringFieldUpdateOperationsInput | string
     subtotal?: FloatFieldUpdateOperationsInput | number
@@ -18952,6 +19004,7 @@ export namespace Prisma {
     nameEn?: SortOrder
     category?: SortOrder
     basePrice?: SortOrder
+    sizes?: SortOrder
     image?: SortOrder
     description?: SortOrder
     isAvailable?: SortOrder
@@ -18970,6 +19023,7 @@ export namespace Prisma {
     nameEn?: SortOrder
     category?: SortOrder
     basePrice?: SortOrder
+    sizes?: SortOrder
     image?: SortOrder
     description?: SortOrder
     isAvailable?: SortOrder
@@ -18983,6 +19037,7 @@ export namespace Prisma {
     nameEn?: SortOrder
     category?: SortOrder
     basePrice?: SortOrder
+    sizes?: SortOrder
     image?: SortOrder
     description?: SortOrder
     isAvailable?: SortOrder
@@ -19042,6 +19097,7 @@ export namespace Prisma {
     phone?: SortOrder
     address?: SortOrder
     zone?: SortOrder
+    orderType?: SortOrder
     status?: SortOrder
     items?: SortOrder
     subtotal?: SortOrder
@@ -19077,6 +19133,7 @@ export namespace Prisma {
     phone?: SortOrder
     address?: SortOrder
     zone?: SortOrder
+    orderType?: SortOrder
     status?: SortOrder
     items?: SortOrder
     subtotal?: SortOrder
@@ -19104,6 +19161,7 @@ export namespace Prisma {
     phone?: SortOrder
     address?: SortOrder
     zone?: SortOrder
+    orderType?: SortOrder
     status?: SortOrder
     items?: SortOrder
     subtotal?: SortOrder

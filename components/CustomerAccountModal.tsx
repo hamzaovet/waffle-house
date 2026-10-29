@@ -713,7 +713,7 @@ export default function CustomerAccountModal({
                         border: "1px solid #E8DAC8",
                       }}
                     >
-                      {customer.address || "مدينة 6 أكتوبر"} ({customer.zone || "الحي الثاني"})
+                      {customer.address || "مدينة حدائق القبة"} ({customer.zone || "الحي الثاني"})
                     </div>
                   </div>
                 </div>

@@ -11,6 +11,7 @@ export interface PrintableOrder {
   phone: string;
   address?: string | null;
   zone?: string | null;
+  orderType?: string | null; // delivery, takeaway, dinein
   status: string;
   items: string; // JSON
   subtotal: number;
@@ -43,9 +44,19 @@ export function printThermalReceipt(order: PrintableOrder) {
   const formattedDate = dateObj.toLocaleDateString("ar-EG", { year: "numeric", month: "short", day: "numeric" });
   const formattedTime = dateObj.toLocaleTimeString("ar-EG", { hour: "2-digit", minute: "2-digit" });
 
+  const isTakeaway = order.orderType === "takeaway";
+  const isDinein = order.orderType === "dinein";
+  const isDelivery = !isTakeaway && !isDinein;
+
+  const orderTypeBadge = isTakeaway
+    ? "🥡 طلب استلام من الفرع (تيك أواي)"
+    : isDinein
+    ? "🍽️ طلب تناول بالصالة (داين إن)"
+    : "🛵 طلب توصيل سريع (دليفري)";
+
   const paymentText =
     order.paymentMethod === "cash" ? "كاش عند الاستلام 💵" :
-    order.paymentMethod === "instapay" ? "إنستاباي (تم الدفع) ⚡" :
+    order.paymentMethod === "instapay" ? "إنستاباي (تم التحويل) ⚡" :
     order.paymentMethod === "wallet" ? "محفظة كاش 📱" : "فيزا / كارت 💳";
 
   const isOrderEdited = Boolean(order.timeline && order.timeline.includes("edited"));
@@ -129,23 +140,31 @@ export function printThermalReceipt(order: PrintableOrder) {
     </head>
     <body onload="window.print(); setTimeout(() => window.close(), 500);">
       <div class="text-center">
-        <img src="${typeof window !== 'undefined' ? window.location.origin : ''}/waffle-house-logo.jpg" alt="Waffle House" style="width: 44mm; max-width: 170px; height: auto; margin: 0 auto 6px; display: block; border-radius: 50%;" />
-        <div style="font-size: 13px; font-weight: 900; letter-spacing: 0.5px;">Waffle House (وافل هاوس)</div>
-        <div style="font-size: 11px; color: #444; margin-top: 2px;">القاهرة - مصر</div>
-        <div style="font-size: 12px; font-weight: bold;">هاتف / واتساب المطعم: 01018671000</div>
+        <img src="${typeof window !== 'undefined' ? window.location.origin : ''}/logo.jpg" alt="Waffle House" style="width: 44mm; max-width: 170px; height: auto; margin: 0 auto 6px; display: block; border-radius: 50%;" />
+        <div style="font-size: 14px; font-weight: 900; letter-spacing: 0.5px;">WAFFLE HOUSE • وافل هاوس</div>
+        <div style="font-size: 11px; font-weight: 700; color: #333;">SWEET WE HAVE SWEETEST</div>
+        <div style="font-size: 11px; color: #222; margin-top: 2px;">حدائق القبة - ش مصر والسودان - بجوار حلواني الشيبي</div>
+        <div style="font-size: 12px; font-weight: bold; margin-top: 2px;">هاتف: 01155175799 - 01117649159</div>
       </div>
 
-      <div class="divider"></div>
+      <div class="double-divider"></div>
+
+      <!-- Prominent Order Type Banner -->
+      <div style="background: #000000; color: #ffffff; text-align: center; font-weight: 900; font-size: 14px; padding: 4px 0; letter-spacing: 0.5px;">
+        *** ${orderTypeBadge} ***
+      </div>
 
       ${isOrderEdited ? `
-        <div style="background: #000000; color: #ffffff; text-align: center; font-weight: 900; font-size: 13px; padding: 3px 0; margin-bottom: 6px; letter-spacing: 1px;">
-          *** فاتورة معدّلة (MODIFIED) ***
+        <div style="background: #333333; color: #ffffff; text-align: center; font-weight: 900; font-size: 12px; padding: 3px 0; margin-top: 3px;">
+          ⚠️ فاتورة معدّلة (MODIFIED)
         </div>
       ` : ""}
 
+      <div class="divider"></div>
+
       <div class="flex-between font-bold">
         <span>رقم الأوردر:</span>
-        <span style="font-size: 15px;">${order.orderNumber}</span>
+        <span style="font-size: 16px;">${order.orderNumber}</span>
       </div>
       <div class="flex-between" style="font-size: 12px;">
         <span>التاريخ: ${formattedDate}</span>
@@ -158,13 +177,17 @@ export function printThermalReceipt(order: PrintableOrder) {
       <div>
         <div><span class="font-bold">العميل:</span> ${order.customerName}</div>
         <div><span class="font-bold">الموبايل:</span> ${order.phone}</div>
-        <div><span class="font-bold">المنطقة:</span> ${order.zone || "الحي الثاني"}</div>
-        ${order.address ? `<div><span class="font-bold">العنوان:</span> ${order.address}</div>` : ""}
+        ${isDelivery ? `
+          <div><span class="font-bold">المنطقة:</span> ${order.zone || "حدائق القبة"}</div>
+          ${order.address ? `<div><span class="font-bold">العنوان:</span> ${order.address}</div>` : ""}
+        ` : `
+          <div style="color: #047857; font-weight: bold;">الاستلام: فرع حدائق القبة (شارع مصر والسودان)</div>
+        `}
         ${order.notes ? `<div><span class="font-bold">ملاحظات:</span> ⚠️ ${order.notes}</div>` : ""}
       </div>
 
-      <!-- Captain Details -->
-      ${order.captainName ? `
+      <!-- Captain Details if Delivery -->
+      ${isDelivery && order.captainName ? `
         <div class="divider"></div>
         <div style="background: #f0f0f0; padding: 4px; border: 1px dashed #000;">
           <div class="font-bold">🛵 كابتن التوصيل:</div>
@@ -178,7 +201,7 @@ export function printThermalReceipt(order: PrintableOrder) {
       <table class="items-table">
         <thead>
           <tr>
-            <th class="text-right" style="width: 55%;">الصنف</th>
+            <th class="text-right" style="width: 55%;">الصنف والحجم</th>
             <th class="text-center" style="width: 20%;">الكمية</th>
             <th class="text-left" style="width: 25%;">السعر</th>
           </tr>
@@ -207,8 +230,8 @@ export function printThermalReceipt(order: PrintableOrder) {
         <span>${order.subtotal} ج</span>
       </div>
       <div class="flex-between">
-        <span>خدمة التوصيل (${order.zone || "6 أكتوبر"}):</span>
-        <span>${order.deliveryFee} ج</span>
+        <span>${isDelivery ? `خدمة التوصيل (${order.zone || "حدائق القبة"}):` : "رسوم التوصيل (استلام / صالة):"}</span>
+        <span>${isDelivery ? `${order.deliveryFee} ج` : "0 ج (مجاناً)"}</span>
       </div>
 
       <div class="double-divider"></div>
@@ -226,13 +249,13 @@ export function printThermalReceipt(order: PrintableOrder) {
       <div class="divider"></div>
 
       <div class="text-center" style="margin-top: 8px;">
-        <img src="https://api.qrserver.com/v1/create-qr-code/?size=130x130&data=${encodeURIComponent((typeof window !== 'undefined' ? window.location.origin : 'https://waffle-cake.vercel.app') + '/receipt/' + order.id)}" style="width: 28mm; height: 28mm; margin: 0 auto 4px; display: block;" alt="Receipt QR" />
-        <div style="font-size: 10px; font-weight: bold;">📱 امسح الكود لتتبع الفاتورة والأوردر لايف</div>
+        <img src="https://api.qrserver.com/v1/create-qr-code/?size=130x130&data=${encodeURIComponent((typeof window !== 'undefined' ? window.location.origin : 'https://waffle-house-alpha.vercel.app') + '/receipt/' + order.id)}" style="width: 28mm; height: 28mm; margin: 0 auto 4px; display: block;" alt="Receipt QR" />
+        <div style="font-size: 10px; font-weight: bold;">📱 امسح الكود لتتبع الفاتورة والأوردر رقمياً</div>
       </div>
 
       <div class="footer-note">
-        شكراً لطلبكم من Waffle House 🧇🍰<br/>
-        نسعد دائماً بخدمتكم في القاهرة<br/>
+        شكراً لطلبكم من Waffle House 🧇✨<br/>
+        حدائق القبة - ش مصر والسودان (بجوار حلواني الشيبي)<br/>
         *** برمجة وتطوير: شركة أوركا للحلول البرمجية (01018671000) ***
       </div>
     </body>
@@ -253,6 +276,10 @@ export default function ThermalReceiptModal({ order, onClose }: ThermalReceiptMo
       return [];
     }
   })();
+
+  const isTakeaway = order.orderType === "takeaway";
+  const isDinein = order.orderType === "dinein";
+  const isDelivery = !isTakeaway && !isDinein;
 
   return (
     <div
@@ -313,7 +340,7 @@ export default function ThermalReceiptModal({ order, onClose }: ThermalReceiptMo
               <h3 style={{ margin: 0, fontSize: "16px", fontWeight: 900, color: "#2B170E" }}>
                 معاينة ريسيت الطابعة الحرارية 🧾
               </h3>
-              <span style={{ fontSize: "12px", color: "#7E5E49" }}>مقاس رول 80mm / 58mm المعتمد</span>
+              <span style={{ fontSize: "12px", color: "#7E5E49" }}>مقاس رول 80mm المعتمد • وافل هاوس</span>
             </div>
           </div>
 
@@ -347,13 +374,30 @@ export default function ThermalReceiptModal({ order, onClose }: ThermalReceiptMo
           >
             {/* Store Banner */}
             <div style={{ textAlign: "center", marginBottom: "12px" }}>
-              <img src="/waffle-house-logo.jpg" alt="Waffle House" style={{ width: "90px", height: "90px", borderRadius: "50%", objectFit: "cover", margin: "0 auto 8px", display: "block", border: "2px solid #5a3825" }} />
-              <div style={{ fontSize: "14px", fontWeight: 900, color: "#180e06" }}>Waffle House (وافل هاوس)</div>
-              <div style={{ fontSize: "11px", color: "#444", fontWeight: 700 }}>القاهرة - مصر</div>
-              <div style={{ fontSize: "12px", fontWeight: 700, marginTop: "2px" }}>هاتف / واتساب المطعم: 01018671000</div>
+              <img src="/logo.jpg" alt="Waffle House" style={{ width: "80px", height: "80px", borderRadius: "50%", objectFit: "cover", margin: "0 auto 8px", display: "block", border: "2px solid #5a3825" }} />
+              <div style={{ fontSize: "15px", fontWeight: 900, color: "#180e06" }}>WAFFLE HOUSE (وافل هاوس)</div>
+              <div style={{ fontSize: "11px", fontWeight: 700, color: "#8B0000" }}>SWEET WE HAVE SWEETEST</div>
+              <div style={{ fontSize: "11.5px", color: "#444", fontWeight: 700, marginTop: "2px" }}>حدائق القبة - ش مصر والسودان - بجوار حلواني الشيبي</div>
+              <div style={{ fontSize: "12px", fontWeight: 700, marginTop: "2px" }}>هاتف: 01155175799 - 01117649159</div>
             </div>
 
-            <div style={{ borderTop: "1px dashed #666", margin: "10px 0" }} />
+            <div style={{ borderTop: "2px solid #000", margin: "10px 0" }} />
+
+            {/* Order Type Banner */}
+            <div
+              style={{
+                backgroundColor: isTakeaway ? "#047857" : isDinein ? "#7c2d12" : "#1e293b",
+                color: "#ffffff",
+                textAlign: "center",
+                fontWeight: 900,
+                fontSize: "13px",
+                padding: "6px 8px",
+                borderRadius: "6px",
+                marginBottom: "8px",
+              }}
+            >
+              {isTakeaway ? "🥡 طلب استلام من الفرع (تيك أواي)" : isDinein ? "🍽️ طلب صالة" : "🛵 طلب توصيل سريع (دليفري)"}
+            </div>
 
             {Boolean(order.timeline && order.timeline.includes("edited")) && (
               <div
@@ -388,13 +432,21 @@ export default function ThermalReceiptModal({ order, onClose }: ThermalReceiptMo
             <div style={{ fontSize: "12.5px" }}>
               <div><b>العميل:</b> {order.customerName}</div>
               <div><b>الموبايل:</b> {order.phone}</div>
-              <div><b>المنطقة:</b> {order.zone || "الحي الثاني"}</div>
-              {order.address && <div><b>العنوان:</b> {order.address}</div>}
+              {isDelivery ? (
+                <>
+                  <div><b>المنطقة:</b> {order.zone || "حدائق القبة"}</div>
+                  {order.address && <div><b>العنوان:</b> {order.address}</div>}
+                </>
+              ) : (
+                <div style={{ color: "#047857", fontWeight: 700, marginTop: "2px" }}>
+                  📍 استلام من فرع حدائق القبة (شارع مصر والسودان)
+                </div>
+              )}
               {order.notes && <div style={{ color: "#b45309" }}><b>ملاحظات:</b> 📝 {order.notes}</div>}
             </div>
 
-            {/* Captain */}
-            {order.captainName && (
+            {/* Captain if Delivery */}
+            {isDelivery && order.captainName && (
               <div style={{ marginTop: "8px", padding: "6px", backgroundColor: "#f3f4f6", borderRadius: "6px", border: "1px dashed #999" }}>
                 <b>🛵 كابتن التوصيل:</b> {order.captainName} {order.captainPhone ? `(${order.captainPhone})` : ""}
               </div>
@@ -406,7 +458,7 @@ export default function ThermalReceiptModal({ order, onClose }: ThermalReceiptMo
             <table style={{ width: "100%", borderCollapse: "collapse" }}>
               <thead>
                 <tr style={{ borderBottom: "1px solid #333", fontSize: "12px" }}>
-                  <th style={{ textAlign: "right", paddingBottom: "4px" }}>الصنف</th>
+                  <th style={{ textAlign: "right", paddingBottom: "4px" }}>الصنف والحجم</th>
                   <th style={{ textAlign: "center", paddingBottom: "4px" }}>الكمية</th>
                   <th style={{ textAlign: "left", paddingBottom: "4px" }}>السعر</th>
                 </tr>
@@ -439,8 +491,8 @@ export default function ThermalReceiptModal({ order, onClose }: ThermalReceiptMo
               <span>{order.subtotal} ج</span>
             </div>
             <div style={{ display: "flex", justifyContent: "space-between" }}>
-              <span>خدمة التوصيل:</span>
-              <span>{order.deliveryFee} ج</span>
+              <span>{isDelivery ? "خدمة التوصيل:" : "رسوم الاستلام:"}</span>
+              <span>{isDelivery ? `${order.deliveryFee} ج` : "0 ج (استلام من الفرع)"}</span>
             </div>
 
             <div style={{ borderTop: "2px solid #000", margin: "8px 0" }} />
@@ -465,7 +517,7 @@ export default function ThermalReceiptModal({ order, onClose }: ThermalReceiptMo
             <div style={{ textAlign: "center", margin: "10px 0" }}>
               <img
                 src={`https://api.qrserver.com/v1/create-qr-code/?size=130x130&data=${encodeURIComponent(
-                  (typeof window !== "undefined" ? window.location.origin : "https://choco-house.vercel.app") + "/receipt/" + order.id
+                  (typeof window !== "undefined" ? window.location.origin : "https://waffle-house-alpha.vercel.app") + "/receipt/" + order.id
                 )}`}
                 alt="QR Code"
                 style={{ width: "95px", height: "95px", margin: "0 auto 4px", display: "block" }}
@@ -478,8 +530,9 @@ export default function ThermalReceiptModal({ order, onClose }: ThermalReceiptMo
             <div style={{ borderTop: "1px dashed #666", margin: "8px 0" }} />
 
             <div style={{ textAlign: "center", fontSize: "11px", color: "#555" }}>
-              شكراً لطلبكم من Waffle House 🧇🍰<br/>
-              لخدمة العملاء والطلبات: 01018671000<br/>
+              شكراً لطلبكم من Waffle House 🧇✨<br/>
+              حدائق القبة - ش مصر والسودان (بجوار حلواني الشيبي)<br/>
+              هواتفنا: 01155175799 • 01117649159<br/>
               برمجة وتطوير: شركة أوركا للحلول البرمجية (01018671000)
             </div>
           </div>
@@ -518,7 +571,7 @@ export default function ThermalReceiptModal({ order, onClose }: ThermalReceiptMo
             style={{
               padding: "12px 24px",
               borderRadius: "12px",
-              background: "linear-gradient(135deg, #D4954E, #C6873E)",
+              background: "linear-gradient(135deg, #8B0000, #991B1B)",
               border: "none",
               color: "#FFFFFF",
               fontSize: "14px",
@@ -527,7 +580,7 @@ export default function ThermalReceiptModal({ order, onClose }: ThermalReceiptMo
               display: "flex",
               alignItems: "center",
               gap: "8px",
-              boxShadow: "0 4px 16px rgba(198, 135, 62, 0.3)",
+              boxShadow: "0 4px 16px rgba(139, 0, 0, 0.3)",
             }}
           >
             <Printer size={18} />
